@@ -8,6 +8,7 @@ function Button({
   variant = "main", // main, secondary, outline
   rounded = false, // true = rounded-full, false = rounded-md
   to,
+  className="",
   ...props
 }) {
   const sizeClasses = rounded
@@ -29,7 +30,7 @@ function Button({
     ${rounded ? "rounded-full" : "rounded-4xl"}
     capitalize font-medium shadow hover:shadow-lg
     disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 cursor-pointer
-    transition-all duration-300
+    transition-all duration-300 ${className}
     ${variant !== "outline" ? "focus:outline-none focus:ring-2 focus:ring-brand-secondary focus:ring-offset-2" : ""}
   `;
 

@@ -2,7 +2,7 @@ import { heroImg } from "../../utils/constants.js";
 
 function Hero() {
   return (
-    <section className={`pt-16 w-full`}>
+    <section className={`pt-14 w-full`}>
       <div className={`flex flex-col h-full`}>
         {/* Hero Text */}
         <div className={`flex-center flex-col gap-3 min-h-1/2`}>
@@ -20,7 +20,7 @@ function Hero() {
           </p>
         </div>
         {/* Hero Image */}
-        <div className={`my-2 w-full py-4 rounded-sm h-full py-2`}>
+        <div className={`my-2 w-full pb-5 px-0 rounded-sm h-full`}>
           <img
             className={`w-full h-auto object-cover rounded-sm`}
             src={heroImg}
