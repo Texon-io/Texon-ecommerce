@@ -1,9 +1,9 @@
 // src/App.jsx
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
+import Home from "./pages/Home/Home.jsx";
 
 // Pages
-// import Home from './pages/Home';
 // import Products from './pages/Products';
 // import Cart from './pages/Cart';
 // import Wishlist from './pages/Wishlist';
@@ -23,7 +23,7 @@ function App() {
         path="/"
         element={
           <MainLayout>
-            <div>Home</div>
+            <Home />
           </MainLayout>
         }
       />

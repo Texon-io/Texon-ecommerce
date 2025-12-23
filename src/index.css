@@ -18,12 +18,16 @@ html {
   font-family: "Inter", sans-serif;
 }
 
-input::placeholder{
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;
+body {
+  color: var(--color-brand-black);
 }
-input:focus::placeholder{
-    opacity: 0;
+
+input::placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+input:focus::placeholder {
+  opacity: 0;
 }
 
 .p-muted {
