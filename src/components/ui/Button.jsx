@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 function Button({
                     size = "md", // sm, md, lg
                     children,
@@ -5,6 +7,7 @@ function Button({
                     disabled = false,
                     variant = "main", // main, secondary, outline
                     rounded = false,   // true = rounded-full, false = rounded-md
+                    to,
                     ...props
                 }) {
     const sizeClasses = rounded
@@ -25,12 +28,24 @@ function Button({
     ${variant !== "outline" ? "focus:outline-none focus:ring-2 focus:ring-brand-secondary focus:ring-offset-2" : ""}
   `;
 
+    const classNames = `${sizeClasses[size]} ${variantClasses[variant]} ${baseClass}`;
+
+    if (to) {
+        return (
+            <Link to={to} className={classNames} {...props}>
+        <span className="flex items-center justify-center gap-2">
+          {children}
+        </span>
+            </Link>
+        );
+    }
+
     return (
         <button
             type="button"
             disabled={disabled}
             onClick={onClick}
-            className={`${sizeClasses[size]} ${variantClasses[variant]} ${baseClass}`}
+            className={`${classNames}`}
             {...props}
         >
       <span className="flex items-center justify-center gap-2">

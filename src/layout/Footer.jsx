@@ -31,6 +31,7 @@ function Footer() {
             <h3 className="text-sm opacity-75 mb-2">Email</h3>
             <a
               href="mailto:texondev.info@gmail.com"
+              target="_blank"
               className="block font-normal hover:underline focus:underline"
             >
               texondev.info@gmail.com
