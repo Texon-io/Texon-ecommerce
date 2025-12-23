@@ -3,6 +3,7 @@
 A simple e-commerce Minimum Viable Product (MVP) built with a friend using React and Supabase. For testing and experimentation only.
 
 ## Main Features
+
 - Authentication: Login/register (Supabase Auth)
 - Products page: Search, filters (category), sorting, infinite scroll
 - Cart + Wishlist
@@ -11,10 +12,12 @@ A simple e-commerce Minimum Viable Product (MVP) built with a friend using React
 - Admin dashboard: Full CRUD for products, manage promo codes and users
 
 ## Tech Stack
+
 - **Frontend**: React (Vite or CRA), React Router, Tailwind CSS, Shadcn/UI, Sonner (notifications), Zustand (state for cart/wishlist/user), react-infinite-scroll-component
 - **Backend**: Supabase (Auth, Database, Storage)
 
 ## Database Structure
+
 - `users`: id, name, email, role ('user' or 'admin')
 - `products`: id, title, description, price, image_url, category, stock
 - `cart_items`: user_id, product_id, quantity (unique constraint)
@@ -26,6 +29,7 @@ A simple e-commerce Minimum Viable Product (MVP) built with a friend using React
 - RLS enabled: Public read on products, owner/admin access on others
 
 ## Setup
+
 1. `git clone <repo-url>`
 2. `npm install`
 3. Add env vars in `.env`:
@@ -34,6 +38,7 @@ A simple e-commerce Minimum Viable Product (MVP) built with a friend using React
 4. `npm run dev`
 
 ## Notes
+
 - Experimental project only (no real payments or reviews)
 - To create admin: Manually change role in database
 
