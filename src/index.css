@@ -1,47 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 
-@theme{
-    --color-brand-main: #7C71DF;
-    --color-brand-secondary: #897FE1;
-    --color-brand-black: #2E2F33;
-    --color-brand-white: #FFFFFF;
-    --color-brand-gray: #686A74;
+@theme {
+  --color-brand-main: #7c71df;
+  --color-brand-main2: #6b61bd;
+  --color-brand-secondary: #897fe1;
+  --color-brand-secondary2: #6d65b0;
+  --color-brand-black: #2e2f33;
+  --color-brand-white: #ffffff;
+  --color-brand-gray: #686a74;
 }
 
 /* main Styles */
 
-html{
-    scroll-behavior: smooth;
-    font-family: 'Inter', sans-serif;
+html {
+  scroll-behavior: smooth;
+  font-family: "Inter", sans-serif;
 }
 
-.p-muted{
-    @apply tracking-tighter text-gray-500;
+.p-muted {
+  @apply tracking-tighter text-gray-500;
 }
 
 .flex-center {
-    @apply flex justify-center items-center;
+  @apply flex justify-center items-center;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
-    border: 2px solid #f1f1f1;
+  background: #888;
+  border-radius: 10px;
+  border: 2px solid #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  background: #555;
 }
 
 @custom-variant dark (&:is(.dark *));

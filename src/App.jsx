@@ -1,6 +1,6 @@
 // src/App.jsx
-import { Routes, Route } from 'react-router-dom';
-import MainLayout from './layout/MainLayout';
+import { Routes, Route } from "react-router-dom";
+import MainLayout from "./layout/MainLayout";
 
 // Pages
 // import Home from './pages/Home';
@@ -17,21 +17,49 @@ import MainLayout from './layout/MainLayout';
 // import AdminRoute from './components/AdminRoute';
 
 function App() {
-    return (
-            <Routes>
-                <Route path="/" element={<MainLayout><div>Home</div></MainLayout>} />
-                <Route path="/products" element={<MainLayout><div>products</div></MainLayout>} />
-                <Route path="/cart" element={<MainLayout><div>cart</div></MainLayout>} />
-                <Route path="/wishlist" element={<MainLayout><div>wishlist</div></MainLayout>} />
-                {/*<Route path="/checkout" element={<MainLayout><ProtectedRoute><div>checkout</div></ProtectedRoute></MainLayout>} />*/}
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <MainLayout>
+            <div>Home</div>
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/products"
+        element={
+          <MainLayout>
+            <div>products</div>
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/cart"
+        element={
+          <MainLayout>
+            <div>cart</div>
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/wishlist"
+        element={
+          <MainLayout>
+            <div>wishlist</div>
+          </MainLayout>
+        }
+      />
+      {/*<Route path="/checkout" element={<MainLayout><ProtectedRoute><div>checkout</div></ProtectedRoute></MainLayout>} />*/}
 
-                <Route path="/login" element={<div>login</div>} />
-                <Route path="/register" element={<div>register</div>} />
+      <Route path="/login" element={<div>login</div>} />
+      <Route path="/register" element={<div>register</div>} />
 
-                {/*<Route path="/dashboard" element={<MainLayout><ProtectedRoute><div>user dash</div></ProtectedRoute></MainLayout>} />*/}
-                {/*<Route path="/admin" element={<MainLayout><AdminRoute><div>admin dash</div></AdminRoute></MainLayout>} />*/}
-            </Routes>
-    );
+      {/*<Route path="/dashboard" element={<MainLayout><ProtectedRoute><div>user dash</div></ProtectedRoute></MainLayout>} />*/}
+      {/*<Route path="/admin" element={<MainLayout><AdminRoute><div>admin dash</div></AdminRoute></MainLayout>} />*/}
+    </Routes>
+  );
 }
 
 export default App;
