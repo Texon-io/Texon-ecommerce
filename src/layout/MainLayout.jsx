@@ -11,7 +11,7 @@ export default function MainLayout({ children }) {
                 position={"top-right"}
             />
             <Navbar />
-            <main className="flex-1 container px-14 py-8">
+            <main className="flex-1 container px-7 md:px-14 py-8">
                 {children}
             </main>
             <Footer />
