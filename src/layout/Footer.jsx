@@ -16,7 +16,7 @@ function Footer() {
         </div>
 
         {/* Contact Info */}
-        <div className="space-y-8">
+        <div className="flex flex-col justify-between">
           <div>
             <h3 className="text-sm opacity-75 mb-2">Contact Us</h3>
             <a

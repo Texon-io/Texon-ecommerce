@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { Toaster } from "sonner";
 import Button from "../components/ui/Button.jsx";
 import {ArrowRight, ShoppingCart} from "lucide-react";
+import Input from "../components/ui/Input.jsx";
 
 export default function MainLayout({ children }) {
   return (
@@ -12,6 +13,13 @@ export default function MainLayout({ children }) {
       <Navbar />
       <main className="flex-1 container px-7 md:px-14 py-8">
         {children}
+
+          <div>
+
+              <Input label={"Name"} name={"Name"} placeholder={"Name"}/>
+              <Input label={"Email"} type={'email'} name={"email"} placeholder={"Email"} disabled={true}/>
+              <Input label={"Phone"} type={'phone'} name={"phone"} placeholder={"Phone"}/>
+          </div>
       </main>
       <Footer />
     </div>
