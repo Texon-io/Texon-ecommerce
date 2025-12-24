@@ -11,7 +11,6 @@ export default function MainLayout({ children }) {
       <Navbar />
       <main className="px-7 md:px-14 pb-8 w-full">{children}
 
-      <ProductCard/>
       </main>
       <Footer />
     </div>
