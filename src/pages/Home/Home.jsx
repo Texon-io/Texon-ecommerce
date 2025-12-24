@@ -2,6 +2,7 @@ import Hero from "./Hero.jsx";
 import Categories from "./Categories.jsx";
 import TopProducts from "./TopProducts.jsx";
 import Designs from "./Designs.jsx";
+import FAQ from "./FAQ.jsx";
 
 function Home() {
   return (
@@ -10,6 +11,7 @@ function Home() {
       <Categories />
       <TopProducts/>
       <Designs/>
+      <FAQ/>
     </>
   );
 }
