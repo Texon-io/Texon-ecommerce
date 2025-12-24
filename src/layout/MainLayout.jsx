@@ -1,6 +1,6 @@
 import { Toaster } from "sonner";
 
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/Navbar";
 import Footer from "./Footer";
 import ProductCard from "../components/ui/ProductCard.jsx";
 
@@ -9,9 +9,7 @@ export default function MainLayout({ children }) {
     <div className="">
       <Toaster duration={4000} position={"top-right"} />
       <Navbar />
-      <main className="px-7 md:px-14 pb-8 w-full">{children}
-
-      </main>
+      <main className="px-7 md:px-14 pb-8 w-full">{children}</main>
       <Footer />
     </div>
   );
