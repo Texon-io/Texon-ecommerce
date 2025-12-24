@@ -10,7 +10,7 @@ function Categories() {
 
       <div className={`flex flex-col w-full gap-6`}>
         {/* Sitting Room - Full width always */}
-        <div className="bg-gray-100 rounded-xl overflow-hidden flex flex-col md:flex-row justify-between">
+        <div className="bg-gray-100 rounded-md overflow-hidden flex flex-col md:flex-row justify-between">
           <div className="p-8 md:w-1/3 md:p-6 flex flex-col items-start justify-center gap-3">
             <p className="capitalize text-2xl md:text-4xl font-medium">
               Sitting Room
@@ -23,7 +23,7 @@ function Categories() {
           <div className="flex justify-center md:justify-end items-center">
             <img
               src={categ01}
-              lazy={"loading"}
+              loading={"lazy"}
               alt="Sitting room furniture"
               className="w-full md:w-4/5 h-64 md:h-full object-cover"
             />
@@ -32,7 +32,7 @@ function Categories() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Accessories - Half on desktop, full on mobile */}
-          <div className="bg-gray-100 rounded-xl overflow-hidden flex flex-col md:flex-row">
+          <div className="bg-gray-100 rounded-md overflow-hidden flex flex-col md:flex-row">
             <div className="p-8 md:w-1/2 md:p-6 flex flex-col items-start justify-center gap-3">
               <p className="capitalize text-2xl md:text-4xl font-medium">
                 Accessories
@@ -45,7 +45,7 @@ function Categories() {
             <div className="flex justify-center md:justify-end items-center">
               <img
                 src={categ02}
-                lazy={"loading"}
+                loading={"lazy"}
                 alt="Home accessories"
                 className="w-full md:w-4/5 h-fit md:h-full object-cover"
               />
@@ -53,7 +53,7 @@ function Categories() {
           </div>
 
           {/* Kitchen - Half on desktop, full on mobile */}
-          <div className="bg-gray-100 rounded-xl overflow-hidden flex flex-col md:flex-row">
+          <div className="bg-gray-100 rounded-md overflow-hidden flex flex-col md:flex-row">
             <div className="p-8 md:w-1/2 md:p-6 flex flex-col items-start justify-center gap-3">
               <p className="capitalize text-2xl md:text-4xl font-medium">
                 Kitchen
@@ -66,7 +66,7 @@ function Categories() {
             <div className="flex justify-center md:justify-end items-center">
               <img
                 src={categ03}
-                lazy={"loading"}
+                loading={"lazy"}
                 alt="Modern kitchen furniture"
                 className="w-full md:w-4/5 h-fit md:h-full object-cover"
               />
@@ -75,7 +75,7 @@ function Categories() {
         </div>
 
         {/* Bedroom - Full width always */}
-        <div className="bg-gray-100 rounded-xl overflow-hidden flex flex-col md:flex-row justify-between">
+        <div className="bg-gray-100 rounded-md overflow-hidden flex flex-col md:flex-row justify-between">
           <div className="p-8 md:w-1/3 md:p-6 flex flex-col items-start justify-center gap-3">
             <p className="capitalize text-2xl md:text-4xl font-medium">
               Bedroom
@@ -88,7 +88,7 @@ function Categories() {
           <div className="flex justify-center md:justify-end items-center mr-0">
             <img
               src={categ04}
-              lazy={"loading"}
+              loading={"lazy"}
               alt="Luxury bedroom furniture"
               className="w-full md:w-4/5 h-fit md:h-full object-cover"
             />
