@@ -5,7 +5,7 @@ import { MoveRight } from "lucide-react";
 
 function Categories() {
   return (
-    <section className="pt-12 w-full">
+    <section className="pt-14 w-full">
       <SectionHeading>Categories</SectionHeading>
 
       <div className={`flex flex-col w-full gap-6`}>

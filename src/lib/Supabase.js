@@ -6,6 +6,3 @@ const SUPABASE_ANON_KEY =
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// اختبار بسيط عشان لو في خطأ يبان فوراً في Console
-console.log("Supabase Client initialized ✅");
-console.log("URL:", SUPABASE_URL);

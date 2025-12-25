@@ -1,32 +1,43 @@
-import {image1} from "../../utils/constants.js";
-import {HeartIcon, ShoppingCart} from "lucide-react";
+import { HeartIcon, ShoppingCart } from "lucide-react";
 import Button from "../../components/ui/Button.jsx";
 
-function ProductCard() {
-    return (
-        <div className={`product-card flex flex-col gap-3 w-full`}>
-            <div className={`card-img rounded-sm relative overflow-hidden group`}>
-                <img src={image1} alt={`product image`} className={`w-full`}/>
-                <div className={`absolute -bottom-15 opacity-50 group-hover:opacity-100 group-hover:bottom-3 left-0 right-0 flex justify-between items-center transition-all duration-500 ease-in-out px-2`}>
+function ProductCard({product}) {
+    if (!product) return null;
+    const {title, image_url, price} = product
 
+  return (
+    <div className={`product-card flex flex-col gap-3 w-full`}>
+      <div className={`card-img rounded-sm relative overflow-hidden group`}>
+        <img src={image_url} alt={`product image`} className={`w-full`} />
+        <div
+          className={`absolute -bottom-15 opacity-50 group-hover:opacity-100 group-hover:bottom-3 left-0 right-0 flex justify-between items-center transition-all duration-500 ease-in-out px-2`}
+        >
+          <Button size={"sm"} className={"w-fit"}>
+            Add to cart
+            <span>
+              <ShoppingCart />
+            </span>
+          </Button>
 
-                    <Button size={'sm'} className={"w-fit"}>Add to cart
-                        <span><ShoppingCart/></span>
-                    </Button>
-
-                <HeartIcon
-                   // fill={`#FF0000`}
-                   // strokeWidth={1}
-                    className={`cursor-pointer`}
-                />
-                </div>
-            </div>
-            <div className={`card-details flex justify-between items-center px-1 mb-2`}>
-                <h4 className={`capitalize font-medium`}>lorem ipsum dollor</h4>
-                <span className={`bg-brand-gray-secondary text-sm px-2.5 py-1 rounded-xl font-medium`}>$44</span>
-            </div>
+          <HeartIcon
+            // fill={`#FF0000`}
+            // strokeWidth={1}
+            className={`cursor-pointer`}
+          />
         </div>
-    )
+      </div>
+      <div
+        className={`card-details flex justify-between items-center px-1 mb-2`}
+      >
+        <h4 className={`capitalize font-medium`}>{title}</h4>
+        <span
+          className={`bg-brand-gray-secondary text-sm px-2.5 py-1 rounded-xl font-medium`}
+        >
+          ${price}
+        </span>
+      </div>
+    </div>
+  );
 }
 
 export default ProductCard;

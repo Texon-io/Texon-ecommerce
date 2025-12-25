@@ -8,7 +8,7 @@ function Button({
   variant = "main", // main, secondary, outline
   rounded = false, // true = rounded-full, false = rounded-md
   to,
-  className="",
+  className = "",
   ...props
 }) {
   const sizeClasses = rounded
