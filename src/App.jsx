@@ -13,12 +13,12 @@ import ProductDetails from "./pages/ProductDetails/ProductDetails";
 
 
 const queryClient = new QueryClient({
-    defaultOptions:{
-        queries:{
-            staleTime: 60 *1000,
+    defaultOptions: {
+        queries: {
+            staleTime: 60 * 1000,
         }
     }
-}
+})
 
 function App() {
     return (
