@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/Supabase";
+import { useSearchStore } from "@/pages/Products/searchProducts.js";
+import {toast} from "sonner";
 
 const PAGE_SIZE = 12;
 
@@ -10,6 +12,9 @@ export function useProducts() {
     const [isFetching, setIsFetching] = useState(false);
     const [totalCount, setTotalCount] = useState(0);
 
+    const { loadProducts } = useSearchStore();
+
+    // جيب التوتال مرة واحدة
     useEffect(() => {
         async function getTotal() {
             const { count } = await supabase
@@ -19,6 +24,16 @@ export function useProducts() {
         }
         getTotal();
     }, []);
+
+    // تحميل أول صفحة
+    useEffect(() => {
+        fetchMoreProducts();
+    }, []);
+
+    // كل ما الـ products تتغير → ابعتها للـ search store
+    useEffect(() => {
+        loadProducts(products);
+    }, [products, loadProducts]);
 
     async function fetchMoreProducts() {
         setIsFetching(true);
@@ -32,6 +47,7 @@ export function useProducts() {
 
         if (error) {
             console.error(error);
+            toast.error(error.message)
             setIsFetching(false);
             return;
         }
@@ -39,13 +55,12 @@ export function useProducts() {
         setProducts(prev => [...prev, ...data]);
         setPage(prev => prev + 1);
 
-        if (data.length < PAGE_SIZE) setHasMore(false);
+        if (data.length < PAGE_SIZE) {
+            setHasMore(false);
+        }
+
         setIsFetching(false);
     }
-
-    useEffect(() => {
-        fetchMoreProducts();
-    }, []);
 
     const loadedCount = products.length;
 
@@ -56,6 +71,6 @@ export function useProducts() {
         isLoading: products.length === 0 && page === 0,
         isFetching,
         totalCount,
-        loadedCount
+        loadedCount,
     };
 }

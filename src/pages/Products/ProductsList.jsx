@@ -3,6 +3,7 @@ import ProductCard from "@/components/ui/ProductCard";
 import Button from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/spinner.jsx";
 import Indicator from "@/components/ui/Indicator.jsx";
+import {useSearchStore} from "@/pages/Products/searchProducts.js";
 
 function ProductsList() {
     const {
@@ -14,6 +15,8 @@ function ProductsList() {
         totalCount,
         loadedCount,
     } = useProducts();
+
+    const {filtered} = useSearchStore()
 
     // Loading
     if (isLoading) {
@@ -27,7 +30,7 @@ function ProductsList() {
     return (
         <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-sm:justify-items-center">
-                {products.map((product) => (
+                {(filtered || products).map((product) => (
                     <ProductCard key={product.id} product={product} />
                 ))}
             </div>
