@@ -9,9 +9,9 @@ function Home() {
     <>
       <Hero />
       <Categories />
-      <TopProducts/>
-      <Designs/>
-      <FAQ/>
+      <TopProducts />
+      <Designs />
+      <FAQ />
     </>
   );
 }

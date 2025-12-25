@@ -1,7 +1,5 @@
 function Checout() {
-    return (
-        <>checkout</>
-    )
+  return <>checkout</>;
 }
 
 export default Checout;

@@ -1,7 +1,5 @@
 function UserDash() {
-    return (
-        <>user dash</>
-    )
+  return <>user dash</>;
 }
 
 export default UserDash;

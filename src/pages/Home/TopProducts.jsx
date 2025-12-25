@@ -3,21 +3,23 @@ import SortBy from "../../components/ui/SortBy.jsx";
 import ProductCard from "../../components/ui/ProductCard.jsx";
 
 function TopProducts() {
-    return (
-        <section className="pt-14 w-full">
-            <div className={`flex justify-between items-center`}>
-                <SectionHeading >Top Products</SectionHeading>
-            </div>
+  return (
+    <section className="pt-14 w-full">
+      <div className={`flex justify-between items-center`}>
+        <SectionHeading>Top Products</SectionHeading>
+      </div>
 
-            {/*  Top Products  */}
-            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-sm:justify-items-center`}>
-                <ProductCard/>
-                <ProductCard/>
-                <ProductCard/>
-                <ProductCard/>
-            </div>
-        </section>
-    )
+      {/*  Top Products  */}
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-sm:justify-items-center`}
+      >
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+      </div>
+    </section>
+  );
 }
 
 export default TopProducts;

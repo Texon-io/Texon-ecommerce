@@ -23,16 +23,15 @@ import image17 from "/images/Image-17.png";
 import image18 from "/images/Image-18.png";
 import image19 from "/images/Image-19.png";
 import image20 from "/images/Image-20.png";
-import GalleryImage1 from "/images/Gallery-Image-1.png"
-import GalleryImage2 from "/images/Gallery-Image-2.png"
-import GalleryImage3 from "/images/Gallery-Image-3.png"
-import GalleryImage4 from "/images/Gallery-Image-4.png"
-import GalleryImage5 from "/images/Gallery-Image-5.png"
-import GalleryImage6 from "/images/Gallery-Image-6.png"
-import GalleryImage7 from "/images/Gallery-Image-7.png"
-import GalleryImage8 from "/images/Gallery-Image-8.png"
-import GalleryImage9 from "/images/Gallery-Image-9.png"
-
+import GalleryImage1 from "/images/Gallery-Image-1.png";
+import GalleryImage2 from "/images/Gallery-Image-2.png";
+import GalleryImage3 from "/images/Gallery-Image-3.png";
+import GalleryImage4 from "/images/Gallery-Image-4.png";
+import GalleryImage5 from "/images/Gallery-Image-5.png";
+import GalleryImage6 from "/images/Gallery-Image-6.png";
+import GalleryImage7 from "/images/Gallery-Image-7.png";
+import GalleryImage8 from "/images/Gallery-Image-8.png";
+import GalleryImage9 from "/images/Gallery-Image-9.png";
 
 export {
   heroImg,
