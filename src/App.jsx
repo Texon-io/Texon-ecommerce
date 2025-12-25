@@ -11,6 +11,7 @@ import Cart from "./pages/Cart/Cart.jsx";
 import Wishlist from "./pages/Wishlist/Wishlist.jsx";
 import Checkout from "./pages/Checkout/Checout.jsx";
 import UserDashboard from "./pages/userDash/UserDash.jsx";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
 
 // import Login from './pages/Login';
 // import Register from './pages/Register';
@@ -48,6 +49,16 @@ function App() {
                     </MainLayout>
                 }
             />
+
+            <Route
+                path="/productdetails"
+                element={
+                    <MainLayout>
+                        <ProductDetails />
+                    </MainLayout>
+                }
+            />
+
             <Route
                 path="/cart"
                 element={
