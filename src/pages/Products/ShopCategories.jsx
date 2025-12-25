@@ -3,7 +3,7 @@ import {useState} from "react";
 import Button from "../../components/ui/Button.jsx";
 
 const categories = [
-    "All", "Sofa", "Sitting Room", "Kitchen", "Accessories", "Bedroom",
+    "All", "Sitting Room", "Kitchen", "Chairs", "Bedroom",
 ]
 
 function ShopCategories() {

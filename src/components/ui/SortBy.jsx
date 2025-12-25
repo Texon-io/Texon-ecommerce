@@ -22,10 +22,6 @@ function SortBy({ onChange, value = "" }) {
         </SelectContent>
       </Select>
 
-      <ChevronDown
-        className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black/70"
-        size={20}
-      />
     </div>
   );
 }

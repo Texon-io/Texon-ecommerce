@@ -2,6 +2,7 @@ import { HeartIcon, ShoppingCart } from "lucide-react";
 import Button from "../../components/ui/Button.jsx";
 
 function ProductCard({product}) {
+    if (!product) return null;
     const {title, image_url, price} = product
 
   return (

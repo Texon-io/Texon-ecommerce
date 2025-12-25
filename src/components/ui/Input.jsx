@@ -1,4 +1,4 @@
-function Input({ label, name, type = "text", placeholder, ...props }) {
+function Input({ label, value="", onChange="", name, type = "text", placeholder, ...props }) {
   return (
     <div className="flex flex-col items-start gap-2 my-2">
       <label
@@ -9,6 +9,8 @@ function Input({ label, name, type = "text", placeholder, ...props }) {
       </label>
 
       <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         id={name}
         name={name}
         type={type}
