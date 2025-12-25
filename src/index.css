@@ -3,6 +3,7 @@
 
 @theme {
   --color-brand-main: #7c71df;
+  --color-brand-main-trans: #7c71df25;
   --color-brand-main2: #6b61bd;
   --color-brand-secondary: #897fe1;
   --color-brand-secondary2: #6d65b0;
@@ -100,7 +101,6 @@ input:focus::placeholder {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-
 }
 
 :root {
@@ -136,7 +136,6 @@ input:focus::placeholder {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-
 }
 
 .dark {
@@ -183,27 +182,27 @@ input:focus::placeholder {
 }
 
 @keyframes accordion-down {
-    from {
-        height: 0;
-    }
-    to {
-        height: var(--radix-accordion-content-height);
-    }
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
 }
 
 @keyframes accordion-up {
-    from {
-        height: var(--radix-accordion-content-height);
-    }
-    to {
-        height: 0;
-    }
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
 
 @utility animate-accordion-down {
-    animation: accordion-down 0.3s ease-out;
+  animation: accordion-down 0.3s ease-out;
 }
 
 @utility animate-accordion-up {
-    animation: accordion-up 0.3s ease-out;
+  animation: accordion-up 0.3s ease-out;
 }
