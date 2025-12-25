@@ -7,8 +7,8 @@ import Home from "./pages/Home/Home.jsx";
 import Products from "./pages/Products/Products.jsx";
 import Cart from "./pages/Cart/Cart.jsx";
 import Wishlist from "./pages/Wishlist/Wishlist.jsx";
-import Checkout from "./pages/Checkout/Checout.jsx";
-import UserDashboard from "./pages/userDash/UserDash.jsx";
+import Checkout from "./pages/Checkout/Checkout.jsx";
+import UserDashboard from "./pages/UserDash/UserDash.jsx";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 
 
@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
             staleTime: 60 *1000,
         }
     }
-})
+}
 
 function App() {
     return (
