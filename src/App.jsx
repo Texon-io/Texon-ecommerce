@@ -11,6 +11,7 @@ import Checkout from "./pages/Checkout/Checout.jsx";
 import UserDashboard from "./pages/userDash/UserDash.jsx";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 
+
 const queryClient = new QueryClient({
     defaultOptions:{
         queries:{
