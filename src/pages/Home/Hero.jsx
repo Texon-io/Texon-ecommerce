@@ -2,8 +2,8 @@ import { heroImg } from "../../utils/constants.js";
 
 function Hero() {
   return (
-    <section className={`pt-14 w-full`}>
-      <div className={`flex flex-col h-full`}>
+    <section className={`w-full`}>
+      <div className={`flex flex-col h-full gap-6`}>
         {/* Hero Text */}
         <div className={`flex-center flex-col gap-3 min-h-1/2`}>
           <p className={`uppercase text-md font-medium`}>Furniture Store</p>
@@ -20,9 +20,9 @@ function Hero() {
           </p>
         </div>
         {/* Hero Image */}
-        <div className={`my-2 w-full pb-5 px-0 rounded-sm h-full`}>
+        <div className={`my-2 w-full pb-5 px-0 rounded-sm h-96 flex-col justify-center`}>
           <img
-            className={`w-full h-auto object-cover rounded-sm`}
+            className={`w-full rounded-sm h-full`}
             src={heroImg}
             alt={`hero-img-Sofa-product`}
           />

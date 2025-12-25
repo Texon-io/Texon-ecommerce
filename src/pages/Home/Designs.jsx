@@ -23,7 +23,7 @@ const gallery = [
 
 function Designs() {
     return (
-        <section className="pt-12 w-full">
+        <section className="pt-14 w-full">
             <SectionHeading className={`tracking-wider`}>Design inspiration and modern home ideas</SectionHeading>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 auto-rows-[175px] sm:auto-rows-[250px] ">

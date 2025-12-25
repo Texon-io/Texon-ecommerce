@@ -4,10 +4,9 @@ import ProductCard from "../../components/ui/ProductCard.jsx";
 
 function TopProducts() {
     return (
-        <section className="pt-12 w-full">
+        <section className="pt-14 w-full">
             <div className={`flex justify-between items-center`}>
                 <SectionHeading >Top Products</SectionHeading>
-                <SortBy/>
             </div>
 
             {/*  Top Products  */}
