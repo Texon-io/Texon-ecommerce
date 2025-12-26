@@ -1,20 +1,21 @@
-import {useState} from "react";
 
 import Button from "../../components/ui/Button.jsx";
+import {categoriesStore} from "@/pages/Products/categoriesStore.js";
 
 const categories = [
-    "All", "Sitting Room", "Kitchen", "Chairs", "Bedroom",
+    "All", "Sitting Room", "Kitchen", "Chairs", "Bedroom", "Accessories",
 ]
 
 function ShopCategories() {
-    const [category, setCategory] = useState("All")
+
+    const {category, setCategory} = categoriesStore();
     return (
-        <div className={`flex items-center justify-start gap-4 mt-10`}>
+        <div className={`flex items-center max-sm:flex-wrap justify-start gap-4 mt-10`}>
             {categories.map(item=>(
-                item === category ? <Button key={item} onClick={() => setCategory(item)}>{item}</Button> : <button
+                item === category ? <Button key={item} onClick={() => setCategory(item)}>{item}</Button> : <Button
                     key={item}
                     onClick={() => setCategory(item)}
-                    className={`rounded-full bg-brand-gray-secondary px-5 py-2.5 font-medium hover:bg-brand-main hover:text-white cursor-pointer transition-colors duration-300`}>{item}</button>
+                    variant={"category"}>{item}</Button>
             ))}
         </div>
     )

@@ -7,8 +7,8 @@ function ProductCard({product}) {
 
   return (
     <div className={`product-card flex flex-col gap-3 w-full`}>
-      <div className={`card-img rounded-sm relative overflow-hidden group`}>
-        <img loading={`lazy`} src={image_url} alt={`product image`} className={`w-full`} />
+      <div className={`card-img rounded-sm relative overflow-hidden group h-72`}>
+        <img loading={`lazy`} src={image_url} alt={`product image`} className={`w-full h-full`} />
         <div
           className={`absolute -bottom-15 opacity-50 group-hover:opacity-100 group-hover:bottom-3 left-0 right-0 flex justify-between items-center transition-all duration-500 ease-in-out px-2`}
         >

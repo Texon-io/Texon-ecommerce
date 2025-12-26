@@ -24,6 +24,7 @@ function Button({
     secondary: "bg-brand-white text-black hover:bg-gray-50 active:bg-gray-300",
     outline:
       "bg-transparent border border-black/55 text-black hover:border-brand-black hover:bg-brand-black hover:text-white",
+    category: "rounded-full bg-brand-gray-secondary px-5 py-2.5 hover:bg-brand-main hover:text-white cursor-pointer transition-colors duration-300",
   };
 
   const baseClass = `
