@@ -1,9 +1,21 @@
-import SectionHeading from "../../components/ui/SectionHeading.jsx";
-import { categ01, categ02, categ03, categ04 } from "../../utils/constants.js";
-import Button from "../../components/ui/Button.jsx";
+import {useNavigate} from "react-router";
 import { MoveRight } from "lucide-react";
 
+import { categ01, categ02, categ03, categ04 } from "../../utils/constants.js";
+import SectionHeading from "../../components/ui/SectionHeading.jsx";
+import Button from "../../components/ui/Button.jsx";
+import {categoriesStore} from "@/pages/Products/categoriesStore.js";
+
 function Categories() {
+    const navigate = useNavigate()
+    const {setCategory}=  categoriesStore()
+
+    function handleClick(val){
+        setCategory(val);
+        navigate("/products")
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
   return (
     <section className="pt-14 w-full">
       <SectionHeading>Categories</SectionHeading>
@@ -15,7 +27,7 @@ function Categories() {
             <p className="capitalize text-2xl md:text-4xl font-medium">
               Sitting Room
             </p>
-            <Button variant="outline">
+            <Button variant="outline" onClick={() => handleClick("Sitting Room")}>
               Shop now
               <MoveRight strokeWidth={1} />
             </Button>
@@ -37,7 +49,7 @@ function Categories() {
               <p className="capitalize text-2xl md:text-4xl font-medium">
                 Accessories
               </p>
-              <Button variant="outline">
+              <Button variant="outline" onClick={() => handleClick("Accessories")}>
                 Shop now
                 <MoveRight strokeWidth={1} />
               </Button>
@@ -58,7 +70,7 @@ function Categories() {
               <p className="capitalize text-2xl md:text-4xl font-medium">
                 Kitchen
               </p>
-              <Button variant="outline">
+              <Button variant="outline" onClick={() => handleClick("Kitchen")}>
                 Shop now
                 <MoveRight className="ml-2" strokeWidth={1} />
               </Button>
@@ -80,7 +92,7 @@ function Categories() {
             <p className="capitalize text-2xl md:text-4xl font-medium">
               Bedroom
             </p>
-            <Button variant="outline">
+            <Button variant="outline"  onClick={() => handleClick("Bedroom")}>
               Shop now
               <MoveRight className="ml-2" strokeWidth={1} />
             </Button>

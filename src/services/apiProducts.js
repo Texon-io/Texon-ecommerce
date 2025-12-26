@@ -1,17 +1,28 @@
 import {supabase} from "@/lib/Supabase.js";
-import {toast} from "sonner";
 
-export async function getProducts(){
-    let { data, error } = await supabase
-        .from('products')
-        .select('*')
+export async function getProducts({ pageParam = 0, category }) {
+    const PAGE_SIZE = 12;
+    const from = pageParam * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
 
-    if (error){
-        console.error(error.message)
-        toast.error(error.message)
-    } else{
-        return data
+    let query = supabase
+        .from("products")
+        .select("*", { count: "exact" })
+        .range(from, to);
+
+    if (category && category !== "All") {
+        query = query.eq("category", category);
     }
 
+    const { data, error, count } = await query;
 
+    if (error) throw error;
+
+    const hasMore = (pageParam + 1) * PAGE_SIZE < count;
+
+    return {
+        data: data ?? [],
+        nextCursor: hasMore ? pageParam + 1 : undefined,
+    };
 }
+

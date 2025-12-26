@@ -48,7 +48,7 @@ export function ProductGallery({ productdetails }) {
               }
             `}
           >
-            <img src={img} alt="" className="h-full w-full object-cover" />
+            <img loading={`lazy`} src={img} alt="" className="h-full w-full object-cover" />
           </button>
         ))}
       </div>
