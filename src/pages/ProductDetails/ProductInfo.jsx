@@ -3,16 +3,10 @@ import { Heart } from "lucide-react";
 import { Truck } from "lucide-react";
 import { Sprout } from "lucide-react";
 import { useState } from "react";
+import ProductPrice from "../../components/ui/ProductPrice";
 
 export function ProductInfo({ productdetails }) {
   const [isClicked, setIsClicked] = useState(false);
-
-  const discountedPrice = productdetails.hasDiscount
-    ? (
-        productdetails.price -
-        (productdetails.price * productdetails.discountPercentage) / 100
-      ).toFixed(2)
-    : null;
 
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -24,25 +18,15 @@ export function ProductInfo({ productdetails }) {
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold">{productdetails.title}</h1>
         {/* Description */}
-        <p className="text-sm text-brand-gray leading-relaxed">
+        <p className="text-sm text-brand-gray leading-relaxed ">
           {productdetails.description}
         </p>
         {/* Price */}
-        <div className=" flex items-center gap-1 py-2 ">
-          <p className=" text-2xl font-bold text-brand-main">
-            ${discountedPrice ? discountedPrice : productdetails.price}
-          </p>
-          {discountedPrice && (
-            <p className="line-through text-sm font-medium text-gray-400 self-end pb-0.5">
-              ${productdetails.price.toFixed(2)}
-            </p>
-          )}
-          {productdetails.hasDiscount && (
-            <span className="text-sm bg-red-200 font-medium ml-6 px-2 py-1 rounded-md text-red-600">
-              {productdetails.discountPercentage}% off
-            </span>
-          )}
-        </div>
+        <ProductPrice
+          price={productdetails.price}
+          hasDiscount={productdetails.hasDiscount}
+          discountPercentage={productdetails.discountPercentage}
+        />
       </div>
       <div className="space-y-3">
         <div className="flex items-center gap-3 text-sm text-muted-foreground ">
