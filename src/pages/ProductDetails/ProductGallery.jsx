@@ -17,7 +17,6 @@ export function ProductGallery({ productdetails }) {
 
   const handleMouseMove = (e) => {
     setZoomed(true);
-    console.log(zoomed, "ZOOM IN HANDLE MOUSE MOVE");
     const rect = imgRef.current.getBoundingClientRect();
 
     const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -29,7 +28,6 @@ export function ProductGallery({ productdetails }) {
   const resetZoom = () => {
     setOrigin("50% 50%");
     setZoomed(false);
-    console.log(zoomed, "ZOOM OUT RESET");
   };
 
   return (
@@ -48,7 +46,12 @@ export function ProductGallery({ productdetails }) {
               }
             `}
           >
-            <img loading={`lazy`} src={img} alt="" className="h-full w-full object-cover" />
+            <img
+              loading={`lazy`}
+              src={img}
+              alt=""
+              className="h-full w-full object-cover"
+            />
           </button>
         ))}
       </div>
