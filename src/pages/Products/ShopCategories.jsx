@@ -2,11 +2,9 @@
 import Button from "../../components/ui/Button.jsx";
 import {categoriesStore} from "@/pages/Products/categoriesStore.js";
 
-const categories = [
-    "All", "Sitting Room", "Kitchen", "Chairs", "Bedroom", "Accessories",
-]
 
 function ShopCategories() {
+    const {categories} = categoriesStore()
 
     const {category, setCategory} = categoriesStore();
     return (
