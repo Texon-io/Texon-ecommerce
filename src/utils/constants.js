@@ -16,6 +16,7 @@ import GalleryImage6 from "/images/Gallery-Image-6.png";
 import GalleryImage7 from "/images/Gallery-Image-7.png";
 import GalleryImage8 from "/images/Gallery-Image-8.png";
 import GalleryImage9 from "/images/Gallery-Image-9.png";
+import brokenVase from "/images/Squircle.png"
 
 export {
   heroImg,
@@ -36,4 +37,5 @@ export {
   GalleryImage7,
   GalleryImage8,
   GalleryImage9,
+  brokenVase,
 };

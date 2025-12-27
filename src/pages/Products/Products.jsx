@@ -15,7 +15,7 @@ function Products() {
   }
 
   return (
-    <div className={`w-full pt-4`}>
+    <div className={`w-full pt-8`}>
       {/* Shop Intro Text */}
         <ShopIntro />
         <div className={`w-3/4 md:w-1/2 mx-auto mt-5`}>
