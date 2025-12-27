@@ -8,6 +8,7 @@ function Button({
   variant = "main", // main, secondary, outline
   rounded = false, // true = rounded-full, false = rounded-md
   to,
+  type = "button",
   className = "",
   ...props
 }) {
@@ -16,7 +17,7 @@ function Button({
     : {
         sm: "px-3 py-1.5 text-sm",
         md: "px-6 py-3 text-sm",
-        lg: "px-6 py-2 text-lg",
+        lg: "px-6 py-3 text-lg",
       };
 
   const variantClasses = {
@@ -49,7 +50,7 @@ function Button({
 
   return (
     <button
-      type="button"
+      type={type}
       disabled={disabled}
       onClick={onClick}
       className={`${classNames}`}
