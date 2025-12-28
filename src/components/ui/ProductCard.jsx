@@ -1,14 +1,24 @@
 import { HeartIcon, ShoppingCart } from "lucide-react";
 import Button from "../../components/ui/Button.jsx";
+import { useWishlistActions } from "@/pages/Wishlist/useWishlist.js";
 
-function ProductCard({product}) {
-    if (!product) return null;
-    const {title, image_url, price} = product
+function ProductCard({ product }) {
+  // NOTE: Check useWishlist file for more details
+  const { addToWishlist } = useWishlistActions();
+  if (!product) return null;
+  const { title, image_url, price } = product;
 
   return (
     <div className={`product-card flex flex-col gap-3 w-full`}>
-      <div className={`card-img rounded-sm relative overflow-hidden group h-72`}>
-        <img loading={`lazy`} src={image_url} alt={`product image`} className={`w-full h-full`} />
+      <div
+        className={`card-img rounded-sm relative overflow-hidden group h-72`}
+      >
+        <img
+          loading={`lazy`}
+          src={image_url}
+          alt={`product image`}
+          className={`w-full h-full`}
+        />
         <div
           className={`absolute -bottom-15 opacity-50 group-hover:opacity-100 group-hover:bottom-3 left-0 right-0 flex justify-between items-center transition-all duration-500 ease-in-out px-2`}
         >
@@ -19,11 +29,13 @@ function ProductCard({product}) {
             </span>
           </Button>
 
-          <HeartIcon
-            // fill={`#FF0000`}
-            // strokeWidth={1}
-            className={`cursor-pointer`}
-          />
+          <button onClick={() => addToWishlist(product.id)}>
+            <HeartIcon
+              // fill={`#FF0000`}
+              // strokeWidth={1}
+              className={`cursor-pointer`}
+            />
+          </button>
         </div>
       </div>
       <div

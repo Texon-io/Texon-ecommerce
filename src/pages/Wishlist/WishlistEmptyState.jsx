@@ -25,6 +25,7 @@ export default function WishlistEmptyState() {
 
       {/* Action */}
       <Button
+        to={`/products`}
         onClick={() => navigate("/shop")}
         className="mt-6 px-6"
         variant="main"
