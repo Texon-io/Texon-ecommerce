@@ -11,8 +11,8 @@ export function useLogin(){
         mutationKey:["login"],
         mutationFn: ({email, password})=>loginAPI({email, password}),
         onSuccess: () => {
-            toast.success("Logged in successfully.");
-            navigate("/dashboard");
+            toast.success("Logged in successfully, Welcome back!");
+            navigate("/");
         },
         onError: (err) => {
             console.error(err);

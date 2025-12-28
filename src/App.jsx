@@ -15,6 +15,7 @@ import Register from "@/pages/auth/Register.jsx";
 import Login from "@/pages/auth/Login.jsx";
 import ForgetPassword from "@/pages/auth/ForgetPassword.jsx";
 import Reset from "@/pages/auth/Reset.jsx";
+import ProtectedRoute from "@/pages/auth/ProtectedRoute.jsx";
 
 
 const queryClient = new QueryClient({
@@ -40,7 +41,7 @@ function App() {
                 <Route path="/checkout" element={<MainLayout><Checkout /></MainLayout>} />
                 <Route path="/login" element={<Login/>} />
                 <Route path="/register" element={<Register/>} />
-                <Route path="/dashboard" element={<MainLayout><UserDashboard /></MainLayout>} />
+                <Route path="/dashboard" element={<MainLayout><ProtectedRoute><UserDashboard/></ProtectedRoute></MainLayout>} />
                 <Route path="/forget" element={<ForgetPassword/>}/>
                 <Route path="/reset-password" element={<Reset/>}/>
             </Routes>

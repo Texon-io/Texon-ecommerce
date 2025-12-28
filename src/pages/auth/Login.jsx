@@ -43,7 +43,7 @@ function Login() {
                 <Input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" type="email" name="email" />
                 <Input value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" type="password" name="password" />
 
-                <p className={`text-brand-main mb-4 text-end cursor-pointer text-base font-medium hover:text-brand-main/90 transition-colors duration-300`}>Forgot Password?</p>
+                <Link to={'/forget'} className={`text-brand-main mb-4 text-end cursor-pointer text-base font-medium hover:text-brand-main/90 transition-colors duration-300`}>Forgot Password?</Link>
 
                 <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
                     {isLoading ? <Spinner className="size-5" /> : "Login"}
