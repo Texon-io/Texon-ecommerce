@@ -2,121 +2,83 @@ import Button from "@/components/ui/Button";
 import { ShoppingBag, Trash2 } from "lucide-react";
 import ProductPrice from "../../components/ui/ProductPrice";
 import { useState } from "react";
+import { useWishlistActions } from "./useWishlist";
+import ConfirmDeleteDialog from "../../components/ui/ConfirmDeleteDialog";
+import { toast } from "sonner";
+import DeleteSwipe from "./DeleteSwipe";
 
 export default function WishlistItem({ item }) {
-  const [startX, setStartX] = useState(null);
-  const [translateX, setTranslateX] = useState(0);
-  const [isSwiping, setIsSwiping] = useState(false);
+  const { removeFromWishlist, isRemoving } = useWishlistActions();
+  const [open, setOpen] = useState(false);
 
-  const handleTouchStart = (e) => {
-    setStartX(e.touches[0].clientX);
-    setIsSwiping(true);
-  };
-
-  const handleTouchMove = (e) => {
-    if (!isSwiping) return;
-
-    const currentX = e.touches[0].clientX;
-    const diff = currentX - startX;
-
-    // Only allow left swipe
-    if (diff < 0) {
-      setTranslateX(diff);
-    }
-  };
-
-  const handleTouchEnd = () => {
-    setIsSwiping(false);
-
-    if (translateX < -120) {
-      // TODO: DELETE
-      //   onDelete(item.id);
-    } else {
-      // Reset position
-      setTranslateX(0);
-    }
-  };
+  const { title, description, price, discount, image_url, stock } = item;
+  let isInStock = stock > 0;
 
   return (
-    <div className="relative overflow-hidden">
-      {/* Delete Background */}
-      <div className="absolute inset-0 flex items-center justify-end pr-6 rounded-xl bg-red-200">
-        <Trash2 className="text-red-500" size={28} />
-      </div>
+    <DeleteSwipe isRemoving={isRemoving} open={open} setOpen={setOpen}>
       <div
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        style={{
-          transform: `translateX(${translateX}px)`,
-          transition: isSwiping ? "none" : "transform 0.3s ease",
-        }}
-        className="relative"
-      >
-        <div
-          className="
+        className="
         relative flex flex-col gap-6
         md:flex-row md:items-center md:gap-8
         rounded-xl border border-border bg-white p-4
       "
-        >
-          {/* Image */}
-          <img
-            src={item.image}
-            alt={item.title}
-            className="
+      >
+        {/* Image */}
+        <img
+          src={image_url}
+          alt={title}
+          className="
           h-48 w-full
           md:h-42 md:w-42
           rounded-lg object-cover
           border border-brand-main
         "
-          />
+        />
 
-          {/* Info */}
-          <div className="flex flex-1 flex-col justify-between">
-            <div>
-              <p
-                className={`text-sm font-medium ${
-                  item.inStock ? "text-green-600" : "text-red-600"
-                }`}
-              >
-                {item.inStock ? "In Stock" : "Out of Stock"}
-              </p>
+        {/* Info */}
+        <div className="flex flex-1 flex-col justify-between">
+          <div>
+            <p
+              className={`text-sm font-medium ${
+                isInStock ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {isInStock ? `'${stock}' In Stock` : "Out of Stock"}
+            </p>
 
-              <h3 className="mt-1 text-lg md:text-xl font-medium">
-                {item.title}
-              </h3>
+            <h3 className="mt-1 text-lg md:text-xl font-medium">{title}</h3>
 
-              <p className="mt-1 mb-3 text-sm text-muted-foreground">
-                {item.description}
-              </p>
+            <p className="mt-1 mb-3 text-sm text-muted-foreground">
+              {description}
+            </p>
 
-              {/* Price */}
-              <ProductPrice
-                className="text-lg md:text-xl text-brand-black font-semibold"
-                price={item.price}
-                hasDiscount={item.hasDiscount}
-                discountPercentage={item.discountPercentage}
-              />
-            </div>
-
-            {/* Actions */}
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button
-                variant={item.inStock ? "main" : "outline"}
-                disabled={!item.inStock}
-                size="sm"
-                className="flex rounded-md px-4 items-center justify-center gap-2"
-              >
-                <ShoppingBag size={18} />
-                {item.inStock ? "Add to cart" : "Explore similar"}
-              </Button>
-            </div>
+            {/* Price */}
+            <ProductPrice
+              className="text-lg md:text-xl text-brand-black font-semibold"
+              price={price}
+              hasDiscount={discount > 0}
+              discountPercentage={discount}
+            />
           </div>
 
-          {/* Remove */}
-          <button
-            className="
+          {/* Actions */}
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Button
+              variant={isInStock ? "main" : "outline"}
+              disabled={!isInStock}
+              size="sm"
+              className="flex rounded-md px-4 items-center justify-center gap-2"
+            >
+              <ShoppingBag size={18} />
+              {isInStock ? "Add to cart" : "Explore similar"}
+            </Button>
+          </div>
+        </div>
+
+        {/* Remove */}
+        <button
+          onClick={() => setOpen(true)}
+          className="
           absolute top-4 right-4
           md:static
           text-muted-foreground
@@ -125,11 +87,20 @@ export default function WishlistItem({ item }) {
           bg-gray-100
           hover:text-red-500 transition
         "
-          >
-            <Trash2 size={20} />
-          </button>
-        </div>
+        >
+          <Trash2 size={20} />
+        </button>
+        {/* Confirm Dialog */}
+        <ConfirmDeleteDialog
+          open={open}
+          onOpenChange={setOpen}
+          onConfirm={() => {
+            removeFromWishlist(item.id);
+            setOpen(false);
+            toast.success("Removed from wishlist");
+          }}
+        />
       </div>
-    </div>
+    </DeleteSwipe>
   );
 }

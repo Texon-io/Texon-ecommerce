@@ -23,7 +23,7 @@ export function CartItem({ item }) {
             </p>
             <span className="mt-2 inline-flex w-fit items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium">
               <span
-                className="h-3 w-3 rounded-full border border-border inline-block shadow-sm"
+                className="h-2.5 w-2.5 rounded-full border border-border inline-block shadow-sm"
                 style={{ backgroundColor: item.color.toLowerCase() }}
               />
               {item.color}
@@ -31,7 +31,7 @@ export function CartItem({ item }) {
           </div>
 
           {/* Price */}
-          <p className="text-lg sm:text-xl pb-2 font-bold text-brand-main2 self-end sm:self-auto">
+          <p className="text-lg sm:text-xl font-bold text-brand-main2 self-end sm:self-auto">
             ${item.price}
           </p>
         </div>
