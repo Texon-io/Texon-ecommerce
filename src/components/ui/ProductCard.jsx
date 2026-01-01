@@ -1,10 +1,21 @@
 import { HeartIcon, ShoppingCart } from "lucide-react";
 import Button from "../../components/ui/Button.jsx";
-import { useWishlistActions } from "@/pages/Wishlist/useWishlist.js";
+import {
+  useIsInWishlist,
+  useWishlistActions,
+} from "@/pages/Wishlist/useWishlist.js";
+import { useCartActions } from "@/pages/Cart/useCart.js";
+import { handleAddToCart, handleAddToWishlist } from "@/utils/helpers.js";
+import { useIsInCart } from "@/pages/Cart/useCart.js";
 
 function ProductCard({ product }) {
   // NOTE: Check useWishlist file for more details
   const { addToWishlist } = useWishlistActions();
+  const { data: isWishlisted } = useIsInWishlist(product.id);
+  // NOTE: Check useCart file for more details
+  const { addToCart, isAdding } = useCartActions();
+  const { data: cartStatus = { isInCart: false } } = useIsInCart(product.id);
+
   if (!product) return null;
   const { title, image_url, price } = product;
 
@@ -22,14 +33,25 @@ function ProductCard({ product }) {
         <div
           className={`absolute -bottom-15 opacity-50 group-hover:opacity-100 group-hover:bottom-3 left-0 right-0 flex justify-between items-center transition-all duration-500 ease-in-out px-2`}
         >
-          <Button size={"sm"} className={"w-fit"}>
+          <Button
+            onClick={() =>
+              handleAddToCart(cartStatus.isInCart, addToCart, product)
+            }
+            disabled={isAdding}
+            size={"sm"}
+            className={"w-fit"}
+          >
             Add to cart
             <span>
               <ShoppingCart />
             </span>
           </Button>
 
-          <button onClick={() => addToWishlist(product.id)}>
+          <button
+            onClick={() =>
+              handleAddToWishlist(isWishlisted, addToWishlist, product)
+            }
+          >
             <HeartIcon
               // fill={`#FF0000`}
               // strokeWidth={1}

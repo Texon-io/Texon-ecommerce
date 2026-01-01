@@ -4,6 +4,7 @@ import {
   addToWishlist,
   removeFromWishlist,
   isInWishlist,
+  clearWishlist,
 } from "@/services/apiWishlist.js";
 
 export function useWishlist() {
@@ -38,6 +39,11 @@ export function useWishlistActions() {
     },
   });
 
+  const clearMutation = useMutation({
+    mutationFn: clearWishlist,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["wishlist"] }),
+  });
+
   return {
     addToWishlist: addMutation.mutateAsync,
     removeFromWishlist: removeMutation.mutateAsync,
@@ -45,6 +51,8 @@ export function useWishlistActions() {
     isRemoving: removeMutation.isPending,
     addError: addMutation.error,
     removeError: removeMutation.error,
+    clearWishlist: clearMutation.mutateAsync,
+    isClearing: clearMutation.isPending,
   };
 }
 

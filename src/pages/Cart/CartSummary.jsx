@@ -1,6 +1,8 @@
 import Button from "@/components/ui/Button";
+import { useCart } from "./useCart";
 
 export function CartSummary() {
+  const { totalPrice } = useCart();
   return (
     <div className="sticky top-24 h-fit rounded-xl border border-border bg-white p-6">
       <h2 className="text-lg font-semibold">Order Summary</h2>
@@ -13,7 +15,7 @@ export function CartSummary() {
 
       <div className="my-4 h-px bg-border" />
 
-      <SummaryRow label="Total" value="$310.00" strong />
+      <SummaryRow label="Total" value={`$${totalPrice.toFixed(2)}`} strong />
 
       <Button className="mt-6 w-full" variant="main">
         Proceed to Checkout
