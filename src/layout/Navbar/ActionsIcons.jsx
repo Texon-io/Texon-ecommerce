@@ -1,9 +1,11 @@
 import { X, Menu, User, Heart, ShoppingBag } from "lucide-react";
 import IconButtonWithBadge from "./IconButtonWithBadge";
 import { useWishlistCount } from "@/pages/Wishlist/useWishlist";
+import { useCart } from "@/pages/Cart/useCart";
 
 function ActionsIcons({ open, setOpen }) {
   const { data: wishlistCount } = useWishlistCount();
+  const { totalItems } = useCart();
 
   return (
     <div className="flex items-center gap-3">
@@ -24,7 +26,7 @@ function ActionsIcons({ open, setOpen }) {
       {/* Cart */}
       <IconButtonWithBadge
         to={`/cart`}
-        badgeCount={1}
+        badgeCount={totalItems}
         ariaLabel="Shopping Cart"
       >
         <ShoppingBag size={22} />

@@ -34,6 +34,8 @@ export default function Wishlist() {
 
   const safeProducts = products ?? [];
 
+  // console.log(safeProducts);
+
   return (
     <section className="mx-auto max-w-5xl px-6 py-12">
       <h1 className="mb-8 text-2xl font-semibold">

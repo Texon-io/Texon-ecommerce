@@ -6,8 +6,12 @@ import { useWishlistActions } from "./useWishlist";
 import ConfirmDeleteDialog from "../../components/ui/ConfirmDeleteDialog";
 import { toast } from "sonner";
 import DeleteSwipe from "./DeleteSwipe";
+import { useCartActions, useIsInCart } from "../Cart/useCart";
+import { handleAddToCart } from "@/utils/helpers";
 
 export default function WishlistItem({ item }) {
+  const { addToCart } = useCartActions();
+  const { data: cartStatus = { isInCart: false } } = useIsInCart(item.id);
   const { removeFromWishlist, isRemoving } = useWishlistActions();
   const [open, setOpen] = useState(false);
 
@@ -64,6 +68,9 @@ export default function WishlistItem({ item }) {
           {/* Actions */}
           <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button
+              onClick={() =>
+                handleAddToCart(cartStatus.isInCart, addToCart, item)
+              }
               variant={isInStock ? "main" : "outline"}
               disabled={!isInStock}
               size="sm"

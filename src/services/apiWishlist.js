@@ -93,3 +93,23 @@ export async function isInWishlist(productId) {
 
   return !!data;
 }
+
+// Clearing the entire wishlist for the user
+export async function clearWishlist() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    throw new Error("User not authenticated");
+  }
+
+  const { error } = await supabase
+    .from("wishlist_items")
+    .delete()
+    .eq("user_id", user.id);
+
+  if (error) throw error;
+
+  return { success: true };
+}

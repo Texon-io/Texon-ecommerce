@@ -21,8 +21,8 @@ export default function ConfirmDeleteDialog({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent className="rounded-2xl sm:px-12 sm:py-8">
         <AlertDialogHeader>
-          <AlertDialogTitle className="flex  items-center justify-center text-2xl gap-2">
-            <Trash2 size={18} className="text-red-500" />
+          <AlertDialogTitle className="flex items-center justify-center text-2xl gap-2">
+            <Trash2 size={22} className="text-red-500" />
             {title}
           </AlertDialogTitle>
 
