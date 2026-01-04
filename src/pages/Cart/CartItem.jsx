@@ -10,6 +10,7 @@ import {
   useWishlistActions,
 } from "../Wishlist/useWishlist.js";
 import { handleAddToWishlist } from "@/utils/helpers.js";
+import { Link } from "react-router";
 
 export function CartItem({ item }) {
   const [open, setOpen] = useState(false);
@@ -30,11 +31,13 @@ export function CartItem({ item }) {
   return (
     <div className="flex flex-col sm:flex-row gap-6 rounded-xl border border-border p-4">
       {/* Image */}
-      <img
-        src={image_url}
-        alt={title}
-        className="h-52 sm:h-38 w-full sm:w-38 rounded-lg object-cover border border-brand-main"
-      />
+      <Link to={`/productdetails/${item.id}`}>
+        <img
+          src={image_url}
+          alt={title}
+          className="cursor-pointer h-52 sm:h-38 w-full sm:w-38 rounded-lg object-cover border border-brand-main"
+        />
+      </Link>
 
       {/* Info */}
       <div className="flex flex-1 flex-col justify-between p-2">

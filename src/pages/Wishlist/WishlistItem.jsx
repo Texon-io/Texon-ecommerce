@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import DeleteSwipe from "./DeleteSwipe";
 import { useCartActions, useIsInCart } from "../Cart/useCart";
 import { handleAddToCart } from "@/utils/helpers";
+import { Link } from "react-router";
 
 export default function WishlistItem({ item }) {
   const { addToCart } = useCartActions();
@@ -28,16 +29,18 @@ export default function WishlistItem({ item }) {
       "
       >
         {/* Image */}
-        <img
-          src={image_url}
-          alt={title}
-          className="
+        <Link to={`/productdetails/${item.id}`}>
+          <img
+            src={image_url}
+            alt={title}
+            className="
           h-48 w-full
           md:h-42 md:w-42
           rounded-lg object-cover
           border border-brand-main
         "
-        />
+          />
+        </Link>
 
         {/* Info */}
         <div className="flex flex-1 flex-col justify-between">
