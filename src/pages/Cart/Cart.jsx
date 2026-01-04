@@ -1,48 +1,30 @@
 import { CartItem } from "./CartItem";
 import { CartSummary } from "./CartSummary";
 import { useCart } from "./useCart";
-
-// const cartItems = [
-//   {
-//     id: 1,
-//     title: "Wooden Sofa Chair",
-//     description: "A comfortable wooden sofa chair for your living room.",
-//     image: "../../../public/images/Gallery-Image-1.png",
-//     price: 120,
-//     qty: 2,
-//     color: "Brown",
-//     inStock: true,
-//   },
-//   {
-//     id: 2,
-//     title: "Modern Gaming Chair",
-//     description: "A sleek gaming chair perfect for gamers.",
-//     image: "../../../public/images/Gallery-Image-2.png",
-//     price: 180,
-//     qty: 1,
-//     color: "Black",
-//     inStock: true,
-//   },
-//   {
-//     id: 3,
-//     title: "Minimal Wooden Table",
-//     description: "A sleek wooden table perfect for modern interiors.",
-//     image: "../../../public/images/Gallery-Image-3.png",
-//     price: 220,
-//     qty: 1,
-//     color: "Beige",
-//     inStock: false,
-//   },
-// ];
+import HandleEmptyState from "../../components/ui/HandleEmptyState";
+import { PageSkeletonLoading } from "@/components/ui/PageSkeletonLoading";
+import { PageError } from "@/components/ui/PageError";
 
 export default function Cart() {
-  const { cartItems, totalItems, isLoading } = useCart();
+  const { cartItems, totalItems, isLoading, error } = useCart();
 
-  if (isLoading) return <div>جاري تحميل السلة...</div>;
+  // if (error) return <PageError message={error.message} />;
 
-  if (cartItems.length === 0) {
-    return <div className="text-center py-10">السلة فاضية 🛒</div>;
-  }
+  // if (isLoading) {
+  //   return (
+  //     <section className="mx-auto max-w-7xl px-3 md:px-14 py-12">
+  //       <PageSkeletonLoading />
+  //     </section>
+  //   );
+  // }
+
+  // if (cartItems.length === 0) {
+  //   return (
+  //     <section className="mx-auto max-w-7xl px-3 md:px-14 py-12">
+  //       <HandleEmptyState page="cart" />
+  //     </section>
+  //   );
+  // }
   console.log(cartItems);
 
   return (
@@ -50,22 +32,30 @@ export default function Cart() {
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl font-semibold text-brand-black">
-          Shopping Cart ({totalItems})
+          Shopping Cart ({totalItems || "#"})
         </h1>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Cart Items */}
-        <div className="lg:col-span-2 space-y-6">
-          {cartItems.map((item) => (
-            <CartItem key={item.id} item={item} />
-          ))}
-        </div>
+      {/* Loading state */}
+      {isLoading && <PageSkeletonLoading />}
+      {/* Error state */}
+      {error && <PageError message={error.message} />}
 
-        {/* Summary */}
-        <CartSummary />
-      </div>
+      {/* Empty state */}
+      {cartItems.length === 0 && <HandleEmptyState page="cart" />}
+
+      {!isLoading && cartItems.length > 0 && (
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {/* Cart Items */}
+          <div className="lg:col-span-2 space-y-6">
+            {cartItems.map((item) => (
+              <CartItem key={item.id} item={item} />
+            ))}
+          </div>
+
+          <CartSummary />
+        </div>
+      )}
     </section>
   );
 }
