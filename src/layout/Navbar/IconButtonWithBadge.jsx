@@ -11,7 +11,11 @@ function IconButtonWithBadge({
   return (
     <NavLink
       to={to || "#"}
-      className={`relative cursor-pointer rounded-full p-2 hover:bg-brand-main-trans transition ${className}`}
+      className={({ isActive }) =>
+        `relative cursor-pointer rounded-full p-2 hover:bg-brand-main-trans transition ${
+          isActive ? "bg-brand-main-trans" : ""
+        } ${className}`
+      }
       onClick={onClick}
       aria-label={ariaLabel}
     >
