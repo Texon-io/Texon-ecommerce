@@ -24,7 +24,12 @@ export function useCart() {
   // Calculating totals (very useful in the Cart Page)
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) =>
+      sum +
+      (item.discount > 0
+        ? item.price - (item.discount * item.price) / 100
+        : item.price) *
+        item.quantity,
     0
   );
 

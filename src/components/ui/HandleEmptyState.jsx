@@ -1,20 +1,27 @@
 import Button from "@/components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import { HeartCrack } from "lucide-react";
+import Cart from "@/pages/Cart/Cart";
+import { ShoppingCart } from "lucide-react";
 
-export default function WishlistEmptyState() {
+export default function WishlistEmptyState({ page }) {
   const navigate = useNavigate();
 
   return (
     <div className="animate-[fadeUp_0.4s_ease-out] flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-muted/30 px-6 py-20 text-center">
       {/* Icon */}
       <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-main/10">
-        <HeartCrack className="text-brand-main animate-pulse" size={32} />
+        {page === "wishlist" && (
+          <HeartCrack className="text-brand-main animate-pulse" size={32} />
+        )}
+        {page === "cart" && (
+          <ShoppingCart className="text-brand-main animate-pulse" size={32} />
+        )}
       </div>
 
       {/* Title */}
       <h2 className="text-xl md:text-2xl font-semibold text-brand-black">
-        Your wishlist is empty
+        Your {page} is empty
       </h2>
 
       {/* Description */}

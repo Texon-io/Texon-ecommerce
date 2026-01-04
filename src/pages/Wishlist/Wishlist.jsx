@@ -1,7 +1,9 @@
 import { Spinner } from "@/components/ui/spinner.jsx";
 import { useWishlist, useWishlistCount } from "./useWishlist.js";
-import WishlistEmptyState from "./WishlistEmptyState.jsx";
+import WishlistEmptyState from "../../components/ui/HandleEmptyState.jsx";
 import WishlistItem from "./WishlistItem.jsx";
+import { PageError } from "@/components/ui/PageError.jsx";
+import { PageSkeletonLoading } from "@/components/ui/PageSkeletonLoading.jsx";
 
 // const wishlist = [
 //   {
@@ -43,10 +45,10 @@ export default function Wishlist() {
       </h1>
 
       {error && <PageError message={error.message} />}
-      {isLoading && <WishlistSkeleton />}
+      {isLoading && <PageSkeletonLoading />}
 
       {wishlistCount === 0 ? (
-        <WishlistEmptyState />
+        <WishlistEmptyState page="wishlist" />
       ) : (
         <div className="space-y-6">
           {safeProducts.map((item) => (
@@ -55,28 +57,5 @@ export default function Wishlist() {
         </div>
       )}
     </section>
-  );
-}
-
-function WishlistSkeleton() {
-  return (
-    <div className="grid grid-cols-1 gap-4">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="h-40 rounded-xl bg-gray-200 animate-pulse" />
-      ))}
-    </div>
-  );
-}
-
-import { TriangleAlert } from "lucide-react";
-
-export function PageError({ message }) {
-  return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 text-center">
-      <TriangleAlert className="h-6 w-6 text-destructive" />
-      <p className="text-sm text-muted-foreground">
-        {message || "Something went wrong"}
-      </p>
-    </div>
   );
 }
