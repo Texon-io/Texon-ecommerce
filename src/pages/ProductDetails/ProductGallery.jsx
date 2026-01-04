@@ -8,8 +8,8 @@ import { useState } from "react";
 //   "/public/images/product-img-4.png",
 // ];
 
-export function ProductGallery({ productdetails }) {
-  const [active, setActive] = useState(productdetails.images[0]);
+export function ProductGallery({ product }) {
+  const [active, setActive] = useState(product.images[0]);
   const [origin, setOrigin] = useState("50% 50%");
   const [zoomed, setZoomed] = useState(false);
 
@@ -34,9 +34,9 @@ export function ProductGallery({ productdetails }) {
     <div className="flex gap-4  md:flex-row flex-col">
       {/* Thumbnails */}
       <div className="flex gap-1 md:gap-3  md:flex-col flex-row">
-        {productdetails.images.map((img) => (
+        {product.images.map((img, index) => (
           <button
-            key={img}
+            key={`${img}-${index}`}
             onClick={() => setActive(img)}
             className={`h-20 w-20 overflow-hidden rounded-lg border transition duration-300 shadow-sm cursor-pointer
               ${

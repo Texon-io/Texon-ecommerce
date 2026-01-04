@@ -7,6 +7,7 @@ import {
 import { useCartActions } from "@/pages/Cart/useCart.js";
 import { handleAddToCart, handleAddToWishlist } from "@/utils/helpers.js";
 import { useIsInCart } from "@/pages/Cart/useCart.js";
+import { Link } from "react-router";
 
 function ProductCard({ product }) {
   // NOTE: Check useWishlist file for more details
@@ -17,19 +18,23 @@ function ProductCard({ product }) {
   const { data: cartStatus = { isInCart: false } } = useIsInCart(product.id);
 
   if (!product) return null;
-  const { title, image_url, price } = product;
+  const { title, image_url, price, id } = product;
 
   return (
-    <div className={`product-card flex flex-col gap-3 w-full`}>
+    <div
+      className={`product-card flex flex-col gap-3 w-full bg-red-400 cursor-pointer`}
+    >
       <div
         className={`card-img rounded-sm relative overflow-hidden group h-72`}
       >
-        <img
-          loading={`lazy`}
-          src={image_url}
-          alt={`product image`}
-          className={`w-full h-full`}
-        />
+        <Link to={`/productdetails/${id}`}>
+          <img
+            loading={`lazy`}
+            src={image_url}
+            alt={`product image`}
+            className={`w-full h-full`}
+          />
+        </Link>
         <div
           className={`absolute -bottom-15 opacity-50 group-hover:opacity-100 group-hover:bottom-3 left-0 right-0 flex justify-between items-center transition-all duration-500 ease-in-out px-2`}
         >
