@@ -16,6 +16,7 @@ import Login from "@/pages/auth/Login.jsx";
 import ForgetPassword from "@/pages/auth/ForgetPassword.jsx";
 import Reset from "@/pages/auth/Reset.jsx";
 import ProtectedRoute from "@/pages/auth/ProtectedRoute.jsx";
+import ScrollToTop from "@/components/ui/ScrollToTop.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,6 +30,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster duration={4000} position={"top-right"} />
+        <ScrollToTop/>
 
       <ReactQueryDevtools initialIsOpen={false} />
       <Routes>

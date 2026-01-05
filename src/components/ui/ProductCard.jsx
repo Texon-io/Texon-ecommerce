@@ -8,8 +8,11 @@ import { useCartActions } from "@/pages/Cart/useCart.js";
 import { handleAddToCart, handleAddToWishlist } from "@/utils/helpers.js";
 import { useIsInCart } from "@/pages/Cart/useCart.js";
 import { Link } from "react-router";
+import {useEffect, useState} from "react";
+import {Spinner} from "@/components/ui/spinner.jsx";
 
 function ProductCard({ product }) {
+
   // NOTE: Check useWishlist file for more details
   const { addToWishlist } = useWishlistActions();
   const { data: isWishlisted } = useIsInWishlist(product.id);
@@ -17,12 +20,31 @@ function ProductCard({ product }) {
   const { addToCart, isAdding } = useCartActions();
   const { data: cartStatus = { isInCart: false } } = useIsInCart(product.id);
 
-  if (!product) return null;
+    const {isInCart} = cartStatus
+
+  const [isClicked, setIsClicked] = useState(isWishlisted)
+
+    useEffect(() => {
+        if (isWishlisted) {
+            setIsClicked(true);
+        }
+    }, [isWishlisted]);
+
+
+    if (!product) return null;
   const { title, image_url, price, id } = product;
+
+
+
+  // for optimistic UI
+  function handleClick(){
+      setIsClicked(true)
+      handleAddToWishlist(isWishlisted, addToWishlist, product)
+  }
 
   return (
     <div
-      className={`product-card flex flex-col gap-3 w-full bg-red-400 cursor-pointer`}
+      className={`product-card flex flex-col gap-3 w-full cursor-pointer`}
     >
       <div
         className={`card-img rounded-sm relative overflow-hidden group h-72`}
@@ -42,24 +64,24 @@ function ProductCard({ product }) {
             onClick={() =>
               handleAddToCart(cartStatus.isInCart, addToCart, product)
             }
-            disabled={isAdding}
+            disabled={isAdding || isInCart}
             size={"sm"}
             className={"w-fit"}
           >
-            Add to cart
+
+              {}
+              {isAdding ? <Spinner className={`size-6 ml-2`}/> :isInCart ? "Already in cart" : "Add to cart"}
             <span>
-              <ShoppingCart />
+              {!isInCart && <ShoppingCart />}
             </span>
           </Button>
 
           <button
-            onClick={() =>
-              handleAddToWishlist(isWishlisted, addToWishlist, product)
-            }
+            onClick={handleClick}
           >
             <HeartIcon
-              // fill={`#FF0000`}
-              // strokeWidth={1}
+              fill={isClicked ? "#FF0000" : "rgba(0,0,0,0)"}
+              strokeWidth={isClicked ? 0 :2}
               className={`cursor-pointer`}
             />
           </button>
