@@ -8,7 +8,6 @@ const OrdersTable = () => {
     console.log(user)
 
     const { orders, isLoading, isError } = useUserOrders(user?.id)
-
     if (isLoading || !user) return <div className="flex justify-center p-10"><Spinner className={`size-10`}/></div>;
     if (isError) return <div className="text-red-500 text-center p-10">Error loading orders!</div>;
 
@@ -18,7 +17,7 @@ const OrdersTable = () => {
                 <h2 className="text-xl font-bold text-brand-black">My Orders</h2>
             </div>
             <hr/>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto max-h-120 overflow-y-auto">
                 <table className="w-full">
                     <thead className="bg-gray-50 text-brand-black text-sm font-bold uppercase">
                     <tr>
