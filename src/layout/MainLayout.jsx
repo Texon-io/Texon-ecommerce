@@ -8,7 +8,7 @@ export default function MainLayout({ children }) {
     <>
       <div className={``}>
         <Navbar />
-        <main className="px-7 md:px-14 py-8 pt-12 w-full">{children}</main>
+        <main className="px-7 md:px-14 py-8 pt-12 w-full min-h-screen">{children}</main>
         <Footer />
       </div>
     </>

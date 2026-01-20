@@ -21,7 +21,7 @@ export default function ProtectedRoute({ children }) {
         });
     }, [navigate]);
 
-    if (loading) return <Spinner/>;
+    if (loading)  return <div className="flex justify-center p-10"><Spinner className={`size-10`}/></div>;;
     if (!user) return null;
 
     return children;
