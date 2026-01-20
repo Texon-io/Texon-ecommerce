@@ -43,3 +43,23 @@ export async function forgetPassword({email}){
     };
 }
 
+export async function getUserData() {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error) throw error;
+    return user;
+}
+
+export async function logOut(){
+        const { error } = await supabase.auth.signOut();
+        if (error) console.error("Error logging out:", error.message);
+}
+
+export async function updateUserData({ newPassword, fullName }) {
+    let submittedData = {};
+    if (newPassword) submittedData.password = newPassword;
+    if (fullName) submittedData.data = { full_name: fullName };
+
+    const { data, error } = await supabase.auth.updateUser(submittedData);
+    if (error) throw error;
+    return data;
+}

@@ -74,18 +74,20 @@ function App() {
             </MainLayout>
           }
         />
-        <Route
-          path="/checkout"
-          element={
-            <MainLayout>
-              <Checkout />
-            </MainLayout>
-          }
-        />
+          <Route
+              path="/checkout"
+              element={
+                  <MainLayout>
+                      <ProtectedRoute>
+                          <Checkout />
+                      </ProtectedRoute>
+                  </MainLayout>
+              }
+          />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
-          path="/dashboard"
+          path="/userdashboard"
           element={
             <MainLayout>
               <ProtectedRoute>
