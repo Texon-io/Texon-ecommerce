@@ -30,7 +30,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster duration={4000} position={"top-left"} />
-        <ScrollToTop/>
+      <ScrollToTop />
 
       <ReactQueryDevtools initialIsOpen={false} />
       <Routes>
@@ -62,7 +62,9 @@ function App() {
           path="/cart"
           element={
             <MainLayout>
-              <Cart />
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
             </MainLayout>
           }
         />
@@ -70,20 +72,22 @@ function App() {
           path="/wishlist"
           element={
             <MainLayout>
-              <Wishlist />
+              <ProtectedRoute>
+                <Wishlist />
+              </ProtectedRoute>
             </MainLayout>
           }
         />
-          <Route
-              path="/checkout"
-              element={
-                  <MainLayout>
-                      <ProtectedRoute>
-                          <Checkout />
-                      </ProtectedRoute>
-                  </MainLayout>
-              }
-          />
+        <Route
+          path="/checkout"
+          element={
+            <MainLayout>
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            </MainLayout>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
