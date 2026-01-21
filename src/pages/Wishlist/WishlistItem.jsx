@@ -1,7 +1,7 @@
 import Button from "@/components/ui/Button";
 import { ShoppingBag, Trash2 } from "lucide-react";
 import ProductPrice from "../../components/ui/ProductPrice";
-import {useEffect, useState} from "react";
+import { useState } from "react";
 import { useWishlistActions } from "./useWishlist";
 import ConfirmDeleteDialog from "../../components/ui/ConfirmDeleteDialog";
 import { toast } from "sonner";
@@ -9,7 +9,6 @@ import DeleteSwipe from "./DeleteSwipe";
 import { useCartActions, useIsInCart } from "../Cart/useCart";
 import { handleAddToCart } from "@/utils/helpers";
 import { Link } from "react-router";
-import {FastAverageColor} from "fast-average-color";
 
 export default function WishlistItem({ item }) {
   const { addToCart } = useCartActions();
@@ -17,22 +16,8 @@ export default function WishlistItem({ item }) {
   const { removeFromWishlist, isRemoving } = useWishlistActions();
   const [open, setOpen] = useState(false);
 
-  const [avgColor, setAvgColor] = useState('#ccc');
-
-
   const { title, description, price, discount, image_url, stock } = item;
   let isInStock = stock > 0;
-
-
-    useEffect(() => {
-        const fac = new FastAverageColor();
-        // بنستخرج اللون المتوسط من الصورة
-        fac.getColorAsync(image_url)
-            .then(color => {
-                setAvgColor(color.hex);
-            })
-            .catch(e => console.log(e));
-    }, [image_url]);
 
   return (
     <DeleteSwipe isRemoving={isRemoving} open={open} setOpen={setOpen}>
@@ -52,9 +37,8 @@ export default function WishlistItem({ item }) {
           h-48 w-full
           md:h-42 md:w-42
           rounded-lg object-cover
-          border
+          border border-brand-main
         "
-            style={{ borderColor: avgColor, borderWidth: "2px" }}
           />
         </Link>
 
