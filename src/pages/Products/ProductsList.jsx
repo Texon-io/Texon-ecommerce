@@ -11,6 +11,7 @@ import ProductCard from "@/components/ui/ProductCard.jsx";
 import EmptyState from "@/components/ui/EmptyState.jsx";
 import { categoriesStore } from "@/pages/Products/categoriesStore.js";
 import ProductCardSkeleton from "@/components/ui/ProductCardSkeleton.jsx";
+import { useEffect } from "react";
 
 function ProductsList() {
   const { category } = categoriesStore();
@@ -55,6 +56,14 @@ function ProductsList() {
 
     return result;
   }, [products, category, searchTerm, sortMethod]);
+
+
+  useEffect(() => {
+    if (searchTerm.trim() && !displayedProducts.length && hasNextPage && !isFetching) {
+      fetchNextPage()
+    }
+  }, [searchTerm])
+
 
   if (status === "pending") {
     return (
