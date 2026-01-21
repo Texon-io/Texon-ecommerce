@@ -22,7 +22,7 @@ export function ProductInfo({ product }) {
   const [isCartClicked, setIsCartClicked] = useState(cartStatus.isInCart);
 
   const cartItemId = cartItems.find(
-    (item) => item.id === product.id
+    (item) => item.id === product.id,
   )?.cartItemId;
 
   const handleAddToCart = () => {
@@ -58,11 +58,7 @@ export function ProductInfo({ product }) {
           {product.description}
         </p>
         {/* Price */}
-        <ProductPrice
-          price={product.price}
-          hasDiscount={product.hasDiscount}
-          discountPercentage={product.discountPercentage}
-        />
+        <ProductPrice price={product.price} />
       </div>
       <div className="space-y-3">
         <div className="flex items-center gap-3 text-sm text-muted-foreground ">
