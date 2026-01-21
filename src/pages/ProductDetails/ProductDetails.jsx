@@ -1,39 +1,19 @@
-import { useParams } from "react-router";
-import { useProducts } from "../Products/useProducts";
 import { ProductGallery } from "./ProductGallery";
 import { ProductInfo } from "./ProductInfo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageError } from "@/components/ui/PageError";
-
-// const productdetails = {
-//   title: "Luxe Armchair · Left Arm · Oyster",
-//   description: `Ultra-functional and elegantly minimalist, our Luxe Armchair
-//           Collection draws inspiration from Nordic-style décor. It features a
-//           neutral color palette and natural wood accents, highlighted by
-//           uniquely designed hexagonal legs.`,
-//   price: 799,
-//   hasDiscount: true, //NOTE - set to true if there's a discount
-//   discountPercentage: 10, //NOTE - set discount percentage if applicable
-//   images: [
-//     "/public/images/product-img-1.png",
-//     "/public/images/product-img-2.png",
-//     "/public/images/product-img-3.png",
-//     "/public/images/product-img-4.png",
-//   ],
-// };
+import { useProductId } from "./useProductId";
 
 export default function ProductDetails() {
-  const { id } = useParams();
-  const { products, status } = useProducts();
+  const { isLoading, product, error } = useProductId();
 
-  const product = products.find((p) => p.id === id);
-
-  if (!product && status === "success")
+  // Check if the product is not found at all
+  if (!product && !isLoading && error)
     return <PageError message={"Product not found!"} />;
 
   let productdetails = {};
 
-  if (status === "success") {
+  if (product) {
     productdetails = {
       id: product.id,
       title: product.title,
@@ -49,10 +29,8 @@ export default function ProductDetails() {
       ], //NOTE - array of image URLs
     };
   }
-  // console.log("from products details", status, products);
-  console.log("specific product", product);
 
-  if (status === "pending")
+  if (isLoading)
     return (
       <div className="mx-auto max-w-7xl px-0 md:px-6 py-12">
         <div className="flex gap-6 flex-col md:flex-row justify-center items-center">
@@ -63,7 +41,7 @@ export default function ProductDetails() {
     );
 
   return (
-    <section className="mx-auto max-w-7xl px-0 md:px-6 py-12 ">
+    <section className="mx-auto max-w-7xl px-0 md:px-6 py-12 md:mt-24 ">
       {product && (
         <div className="grid gap-6 md:gap-12 md:grid-cols-2 items-center">
           <ProductGallery product={productdetails} />
