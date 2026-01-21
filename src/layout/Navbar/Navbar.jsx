@@ -7,7 +7,6 @@ import { NavLink } from "react-router";
 const NavItems = [
   { to: "/", label: "Home" },
   { to: "/products", label: "Shop" },
-  { to: "/categories", label: "Categories" },
 ];
 
 export default function Navbar() {

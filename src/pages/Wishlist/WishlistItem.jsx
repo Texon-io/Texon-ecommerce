@@ -16,7 +16,7 @@ export default function WishlistItem({ item }) {
   const { removeFromWishlist, isRemoving } = useWishlistActions();
   const [open, setOpen] = useState(false);
 
-  const { title, description, price, discount, image_url, stock } = item;
+  const { title, description, price, image_url, stock } = item;
   let isInStock = stock > 0;
 
   return (
@@ -63,8 +63,6 @@ export default function WishlistItem({ item }) {
             <ProductPrice
               className="text-lg md:text-xl text-brand-black font-semibold"
               price={price}
-              hasDiscount={discount > 0}
-              discountPercentage={discount}
             />
           </div>
 

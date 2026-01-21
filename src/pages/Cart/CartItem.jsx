@@ -16,16 +16,8 @@ export function CartItem({ item }) {
   const [open, setOpen] = useState(false);
   const { addToWishlist } = useWishlistActions();
   const { updateQuantity, removeFromCart } = useCartActions();
-  const {
-    price,
-    discount,
-    quantity,
-    image_url,
-    title,
-    description,
-    cartItemId,
-    stock,
-  } = item;
+  const { price, quantity, image_url, title, description, cartItemId, stock } =
+    item;
   const { data: isWishlisted } = useIsInWishlist(item.id);
 
   return (
@@ -61,8 +53,6 @@ export function CartItem({ item }) {
             <ProductPrice
               className="text-lg sm:text-xl font-bold text-brand-main2"
               price={price}
-              hasDiscount={discount > 0}
-              discountPercentage={discount}
             />
           </div>
         </div>

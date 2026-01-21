@@ -19,7 +19,7 @@ export default function ProductDetails() {
       title: product.title,
       description: product.description,
       price: product.price,
-      hasDiscount: product.discount > 0, //NOTE - set to true if there's a discount
+      hasDiscount: false,
       discountPercentage: product.discount, //NOTE - set discount percentage if applicable
       images: [
         product.image_url,
