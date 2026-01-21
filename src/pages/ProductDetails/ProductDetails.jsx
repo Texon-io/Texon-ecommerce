@@ -34,8 +34,8 @@ export default function ProductDetails() {
     return (
       <div className="mx-auto max-w-7xl px-0 md:px-6 py-12">
         <div className="flex gap-6 flex-col md:flex-row justify-center items-center">
-          <Skeleton className="w-full md:w-1/2 h-[400px] md:h-[500px] lg:h-[600px]" />
-          <Skeleton className="w-full md:w-1/2 h-[300px] md:h-[400px] lg:h-[500px]" />
+          <Skeleton className="w-full md:w-1/2 h-100 md:h-125 lg:h-150" />
+          <Skeleton className="w-full md:w-1/2 h-75 md:h-100 lg:h-125" />
         </div>
       </div>
     );
