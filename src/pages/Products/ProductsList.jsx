@@ -57,13 +57,16 @@ function ProductsList() {
     return result;
   }, [products, category, searchTerm, sortMethod]);
 
-
   useEffect(() => {
-    if (searchTerm.trim() && !displayedProducts.length && hasNextPage && !isFetching) {
-      fetchNextPage()
+    if (
+      searchTerm.trim() &&
+      !displayedProducts.length &&
+      hasNextPage &&
+      !isFetching
+    ) {
+      fetchNextPage();
     }
-  }, [searchTerm])
-
+  }, [searchTerm]);
 
   if (status === "pending") {
     return (
