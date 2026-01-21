@@ -1,9 +1,9 @@
 import Button from "@/components/ui/Button";
 import { useCart } from "./useCart";
-import CheckoutDialog from "./CheckoutDialog";
+import CheckoutDialog from "../Checkout/CheckoutDialog";
 import { useState } from "react";
 
-export function CartSummary({ shippingValue = 10 }) {
+export function CartSummary() {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const { totalPrice } = useCart();
   return (
@@ -12,16 +12,12 @@ export function CartSummary({ shippingValue = 10 }) {
 
       <div className="mt-6 space-y-3 text-sm">
         <SummaryRow label="Subtotal" value={`$${totalPrice.toFixed(2)}`} />
-        <SummaryRow label="Shipping" value={`$${shippingValue.toFixed(2)}`} />
+        <SummaryRow label="Shipping" value={`Free`} />
       </div>
 
       <div className="my-4 h-px bg-border" />
 
-      <SummaryRow
-        label="Total"
-        value={`$${(totalPrice + shippingValue).toFixed(2)}`}
-        strong
-      />
+      <SummaryRow label="Total" value={`$${totalPrice.toFixed(2)}`} strong />
 
       <Button
         onClick={() => setIsCheckoutOpen(true)}
@@ -32,7 +28,10 @@ export function CartSummary({ shippingValue = 10 }) {
       </Button>
       {/* Checkout Dialog */}
       {isCheckoutOpen && (
-        <CheckoutDialog onClose={() => setIsCheckoutOpen(false)} />
+        <CheckoutDialog
+          open={isCheckoutOpen}
+          onOpenChange={setIsCheckoutOpen}
+        />
       )}
     </div>
   );
