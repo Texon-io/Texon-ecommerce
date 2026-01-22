@@ -1,6 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 
+/* في ملف globals.css أو index.css */
+@theme {
+  --animate-in: enter 0.5s ease-out;
+  --animate-out: exit 0.3s ease-in;
+}
+
+/* لو لسه مفيش انيميشن، ضيف دي يدوياً */
+@keyframes enter {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(
+      var(--tw-enter-translate-x, 0),
+      var(--tw-enter-translate-y, 0),
+      0
+    );
+  }
+}
+@keyframes exit {
+  to {
+    opacity: var(--tw-exit-opacity, 1);
+    transform: translate3d(
+      var(--tw-exit-translate-x, 0),
+      var(--tw-exit-translate-y, 0),
+      0
+    );
+  }
+}
+
 @theme {
   --color-brand-main: #7c71df;
   --color-brand-main-trans: #7c71df25;
