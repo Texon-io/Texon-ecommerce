@@ -7,7 +7,7 @@ export default function NavItems({
 }) {
   // Array of menu items
   const menuItems = [
-    { id: "stats", label: "Dashboard", icon: LayoutDashboard },
+    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "products", label: "Products", icon: Package },
     { id: "promos", label: "Promo Codes", icon: TicketPercent },
   ];
