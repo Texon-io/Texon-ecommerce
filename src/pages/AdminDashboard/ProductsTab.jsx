@@ -1,30 +1,18 @@
-import { useState } from "react";
 import CustomSelect from "./CustomSelect";
-import { toast } from "sonner";
-import ConfirmDeleteDialog from "@/components/ui/ConfirmDeleteDialog";
+
 import { PlusCircle } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Search } from "lucide-react";
-import { useProducts } from "../Products/useProducts";
 import ProductRow from "./ProductRow";
-import { useEffect } from "react";
-import { useMemo } from "react";
 import { useSearchStore } from "../Products/searchProducts";
 import { categoriesStore } from "../Products/categoriesStore";
-import { Spinner } from "@/components/ui/spinner";
+import { useAllProducts } from "./useAllProducts";
+import { useMemo } from "react";
 
 function ProductsTab({ setAddProductDialogOpen }) {
-  const [productDeleteDialogOpen, setProductDeleteDialogOpen] = useState(false);
-  const { products, status, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useProducts();
   const { searchTerm, setSearch } = useSearchStore();
   const { category, setCategory, categories } = categoriesStore();
-
-  useEffect(() => {
-    if (hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [products, fetchNextPage, hasNextPage, isFetchingNextPage]);
+  const { products } = useAllProducts("All");
 
   const displayedProducts = useMemo(() => {
     if (!products?.length) return [];
@@ -45,12 +33,7 @@ function ProductsTab({ setAddProductDialogOpen }) {
     return result;
   }, [products, searchTerm, category]);
 
-  if (status === "error") {
-    toast.error("Error fetching products");
-    return null;
-  }
-
-  console.log(products, displayedProducts);
+  console.log("Products: ", displayedProducts);
 
   return (
     <div className="space-y-6">
@@ -129,24 +112,8 @@ function ProductsTab({ setAddProductDialogOpen }) {
           </thead>
           <tbody className="divide-y">
             {displayedProducts?.map((product) => (
-              <ProductRow
-                key={product.id}
-                product={product}
-                setProductDeleteDialogOpen={setProductDeleteDialogOpen}
-              />
+              <ProductRow key={product.id} product={product} />
             ))}
-            {/* TODO: Get the ID of the product to be deleted */}
-            <ConfirmDeleteDialog
-              title="Delete Product?"
-              description="Are you sure you want to delete this product?"
-              open={productDeleteDialogOpen}
-              onOpenChange={setProductDeleteDialogOpen}
-              onConfirm={() => {
-                console.log("Product deleted");
-                setProductDeleteDialogOpen(false);
-                toast.success("Product deleted successfully!");
-              }}
-            />
           </tbody>
         </table>
       </div>
