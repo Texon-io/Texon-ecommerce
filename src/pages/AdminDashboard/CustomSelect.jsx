@@ -41,11 +41,11 @@ export default function CustomSelect({
           {options.length > 0 ? (
             options.map((item) => (
               <SelectItem
-                key={item.id}
-                value={item.id}
+                key={item.id ? item.id : item}
+                value={item.id ? item.id : item}
                 className="cursor-pointer transition-colors focus:bg-[#7C71DF] focus:text-white data-[state=checked]:bg-[#7C71DF]/10 data-[state=checked]:text-[#7C71DF]"
               >
-                {item.label}
+                {item.label ? item.label : item}
               </SelectItem>
             ))
           ) : (

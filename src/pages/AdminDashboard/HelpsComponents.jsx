@@ -1,38 +1,32 @@
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
-function StatCard({ title, value, icon, trend, trendUp, color }) {
+// كارت الإحصائيات بدون الـ Trends المعقدة
+function StatCard({ title, value, icon, description, color }) {
   return (
-    <div className="bg-white p-6 rounded-2xl border shadow-sm hover:shadow-md transition-shadow">
-      <div className="flex justify-between items-start mb-4">
-        <div className={`p-3 rounded-xl ${color}`}>{icon}</div>
-        <div
-          className={`flex items-center text-xs font-medium ${trendUp ? "text-emerald-600" : "text-red-600"}`}
-        >
-          {trend}
-          {trendUp ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
-        </div>
-      </div>
-      <p className="text-gray-500 text-sm font-medium">{title}</p>
-      <h3 className="text-2xl font-bold text-gray-800 mt-1">{value}</h3>
-    </div>
-  );
-}
-
-function CategoryProgress({ label, percentage, color }) {
-  return (
-    <div className="space-y-2">
-      <div className="flex justify-between text-sm">
-        <span className="text-gray-600 font-medium">{label}</span>
-        <span className="text-gray-400">{percentage}%</span>
-      </div>
-      <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-        <div
-          className={`h-full ${color} transition-all duration-1000 rounded-full`}
-          style={{ width: `${percentage}%` }}
-        />
+    <div className="bg-white p-6 rounded-2xl border shadow-sm flex items-center gap-5">
+      <div className={`p-4 rounded-2xl ${color}`}>{icon}</div>
+      <div>
+        <p className="text-gray-500 text-xs font-medium uppercase tracking-wider">
+          {title}
+        </p>
+        <h3 className="text-2xl font-bold text-gray-800">{value}</h3>
+        <p className="text-gray-400 text-[10px] mt-1">{description}</p>
       </div>
     </div>
   );
 }
 
-export { StatCard, CategoryProgress };
+// عرض معلومات الفئات بشكل أبسط
+function CategoryInfo({ label, count, color }) {
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <div className={`w-2 h-2 rounded-full ${color}`} />
+        <span className="text-sm font-medium text-gray-700">{label}</span>
+      </div>
+      <span className="text-sm text-gray-500 font-mono">{count} Items</span>
+    </div>
+  );
+}
+
+export { StatCard, CategoryInfo };
