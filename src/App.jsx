@@ -8,7 +8,6 @@ import Home from "./pages/Home/Home.jsx";
 import Products from "./pages/Products/Products.jsx";
 import Cart from "./pages/Cart/Cart.jsx";
 import Wishlist from "./pages/Wishlist/Wishlist.jsx";
-// import Checkout from "./pages/Checkout/Checkout.jsx";
 import UserDashboard from "./pages/UserDash/UserDash.jsx";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Register from "@/pages/auth/Register.jsx";
@@ -18,6 +17,8 @@ import Reset from "@/pages/auth/Reset.jsx";
 import ProtectedRoute from "@/pages/auth/ProtectedRoute.jsx";
 import ScrollToTop from "@/components/ui/ScrollToTop.jsx";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
+import Blog from "./pages/blog/Blog";
+import BlogDetails from "./pages/blog/BlogDetails";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +44,15 @@ function App() {
             </MainLayout>
           }
         />
+        <Route
+          path="/blog"
+          element={
+            <MainLayout>
+              <Blog />
+            </MainLayout>
+          }
+        />
+        <Route path="/blog/:id" element={<BlogDetails />} />
         <Route
           path="/products"
           element={
@@ -79,16 +89,6 @@ function App() {
             </MainLayout>
           }
         />
-        {/* <Route
-          path="/checkout"
-          element={
-            <MainLayout>
-              <ProtectedRoute>
-                <Checkout />
-              </ProtectedRoute>
-            </MainLayout>
-          }
-        /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route

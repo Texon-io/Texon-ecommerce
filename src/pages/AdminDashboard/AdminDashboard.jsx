@@ -7,6 +7,7 @@ import PromosTab from "./PromosTab";
 import { useEffect } from "react";
 import { supabase } from "../../lib/Supabase";
 import Checking from "./Checking";
+import { toast } from "sonner";
 
 
 export default function AdminDashboard() {
@@ -23,6 +24,7 @@ export default function AdminDashboard() {
       if (user && user.user_metadata?.role === "admin") {
         setIsAdmin(true);
       } else {
+        toast.warning("Not authorized to access this page")
         window.location.href = "/";
       }
       setLoading(false);
