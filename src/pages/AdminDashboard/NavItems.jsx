@@ -26,11 +26,10 @@ export default function NavItems({
               console.log(activeTab);
             }}
             className={`
-              flex items-center gap-3 w-full p-3 rounded-lg font-medium transition-all duration-200
-              ${
-                isActive
-                  ? "bg-[#7C71DF] text-white shadow-lg shadow-[#7C71DF]/10"
-                  : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+              flex items-center cursor-pointer gap-3 w-full p-3 rounded-lg font-medium transition-all duration-200
+              ${isActive
+                ? "bg-[#7C71DF] text-white shadow-lg shadow-[#7C71DF]/10"
+                : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"
               }
             `}
           >

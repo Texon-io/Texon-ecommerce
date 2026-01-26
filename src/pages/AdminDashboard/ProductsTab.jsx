@@ -44,7 +44,7 @@ function ProductsTab({ setAddProductDialogOpen }) {
         </h2>
         <button
           onClick={() => setAddProductDialogOpen(true)}
-          className="w-full sm:w-auto cursor-pointer flex items-center justify-center gap-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+          className="w-full sm:w-auto cursor-pointer flex items-center justify-center gap-2 bg-brand-main text-white px-4 py-2 rounded-lg hover:bg-brand-secondary2 transition-colors"
         >
           <PlusCircle size={20} /> Add Product
         </button>
