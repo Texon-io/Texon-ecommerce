@@ -30,7 +30,7 @@ function ProductRow({ product }) {
       <td className="p-4 text-gray-600 text-sm">{category}</td>
       <td className="p-4 font-bold text-brand-main text-sm">${price}</td>
       <td className="p-4">
-        <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] lg:text-xs whitespace-nowrap">
+        <span className="px-3 py-1 bg-green-200 text-green-700 font-medium rounded-full text-[10px] lg:text-xs whitespace-nowrap">
           {stock > 0 ? `${stock} In Stock` : "Out of Stock"}
         </span>
       </td>

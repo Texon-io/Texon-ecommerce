@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,33 +7,62 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
+import { usePromos } from "./usePromos";
 
-export default function AddPromoDialog({ open, onOpenChange }) {
-  const [isLoading, setIsLoading] = useState(false);
+export default function AddPromoDialog({
+  open,
+  onOpenChange,
+  promoToEdit = null,
+}) {
+  const { addPromo, editPromo, isWorking } = usePromos();
+
   const [formData, setFormData] = useState({
     code: "",
     value: "",
-    usageLimit: "",
     minimumOrderAmount: "",
     isActive: false,
   });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (promoToEdit) {
+      setFormData({
+        code: promoToEdit.code || "",
+        value: promoToEdit.discount_percentage || "",
+        minimumOrderAmount: promoToEdit.min_order_amount || "",
+        isActive: promoToEdit.is_active || false,
+      });
+    } else {
+      setFormData({
+        code: "",
+        value: "",
+        minimumOrderAmount: "",
+        isActive: false,
+      });
+    }
+  }, [promoToEdit, open]);
+
   const handleSave = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
 
-    try {
-      // TODO: Send the form data to your server
-      console.log("Promo Data:", formData);
+    // تجهيز البيانات بالأسماء الصحيحة لـ Supabase فقط
+    const promoData = {
+      code: formData.code.toUpperCase(),
+      discount_percentage: Number(formData.value),
+      min_order_amount: Number(formData.minimumOrderAmount),
+      is_active: formData.isActive,
+    };
 
-      toast.success("Promo code created successfully!");
-      onOpenChange(false); // Close the dialog
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
+    if (promoToEdit) {
+      editPromo(
+        { id: promoToEdit.id, updatedData: promoData },
+        { onSuccess: () => onOpenChange(false) },
+      );
+    } else {
+      addPromo(promoData, {
+        onSuccess: () => onOpenChange(false),
+      });
     }
   };
 
@@ -42,18 +71,17 @@ export default function AddPromoDialog({ open, onOpenChange }) {
       <DialogContent className="sm:max-w-[425px] bg-white rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-gray-800">
-            Create Promo Code
+            {promoToEdit ? "Edit Promo Code" : "Create Promo Code"}
           </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSave} className="space-y-4 pt-4">
           <div className="grid grid-cols-2 gap-4">
-            {/* Code Name */}
             <div className="space-y-2">
               <Label htmlFor="code">Promo Code</Label>
               <input
                 id="code"
-                placeholder="e.g. SUMMER2024"
+                placeholder="e.g. SUMMER20"
                 className="w-full p-2 border rounded-lg outline-none focus:ring-2 ring-[#7C71DF]/20 uppercase"
                 required
                 value={formData.code}
@@ -62,13 +90,12 @@ export default function AddPromoDialog({ open, onOpenChange }) {
                 }
               />
             </div>
-            {/* Discount Value */}
-            <div className="space-y-2 ">
-              <Label htmlFor="value">Value</Label>
+            <div className="space-y-2">
+              <Label htmlFor="value">Discount %</Label>
               <input
                 id="value"
                 type="number"
-                placeholder={formData.type === "percent" ? "%" : "$"}
+                placeholder="20"
                 className="w-full p-2 border rounded-lg outline-none focus:ring-2 ring-[#7C71DF]/20"
                 required
                 value={formData.value}
@@ -79,14 +106,13 @@ export default function AddPromoDialog({ open, onOpenChange }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 ">
-            {/* Min Amount */}
+          <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="min-amount">Min Amount</Label>
+              <Label htmlFor="min-amount">Min Order ($)</Label>
               <input
                 id="min-amount"
                 type="number"
-                placeholder="200$"
+                placeholder="200"
                 className="w-full p-2 border rounded-lg outline-none focus:ring-2 ring-[#7C71DF]/20"
                 required
                 value={formData.minimumOrderAmount}
@@ -98,37 +124,19 @@ export default function AddPromoDialog({ open, onOpenChange }) {
                 }
               />
             </div>
-
-            {/* Usage Limit */}
-            <div className="space-y-2">
-              <Label htmlFor="limit">Usage Limit</Label>
+            <div className="flex items-center gap-2 pt-8 ">
               <input
-                id="limit"
-                type="number"
-                placeholder="e.g. 100"
-                className="w-full p-2 border rounded-lg outline-none focus:ring-2 ring-[#7C71DF]/20"
-                required
-                value={formData.usageLimit}
-                onChange={(e) =>
-                  setFormData({ ...formData, usageLimit: e.target.value })
-                }
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            {/* Status */}
-            <div className="flex items-center gap-4">
-              <input
-                id="statue"
+                id="isActive"
                 type="checkbox"
-                className="w-5 h-5 "
+                className="w-5 h-5 accent-[#7C71DF] cursor-pointer"
                 checked={formData.isActive}
                 onChange={(e) =>
                   setFormData({ ...formData, isActive: e.target.checked })
                 }
               />
-              <Label htmlFor="statue">Is Active</Label>
+              <Label htmlFor="isActive" className="cursor-pointer">
+                Active
+              </Label>
             </div>
           </div>
 
@@ -142,10 +150,10 @@ export default function AddPromoDialog({ open, onOpenChange }) {
             </button>
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isWorking}
               className="cursor-pointer bg-[#7C71DF] text-white px-6 py-2 rounded-lg hover:bg-[#6b61c5] transition-all disabled:opacity-50"
             >
-              {isLoading ? "Saving..." : "Create Coupon"}
+              {isWorking ? "Saving..." : promoToEdit ? "Update" : "Create"}
             </button>
           </DialogFooter>
         </form>

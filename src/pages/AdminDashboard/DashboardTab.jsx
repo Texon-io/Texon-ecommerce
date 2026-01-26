@@ -1,9 +1,12 @@
 import { Ticket, LayoutGrid, Package, PlusCircle } from "lucide-react";
 import { CategoryInfo, StatCard } from "./HelpsComponents";
 import { useAllProducts } from "./useAllProducts";
+import { usePromos } from "./usePromos";
 
 function DashboardTab({ setAddProductDialogOpen, setActiveTab }) {
   const { numCategories, productsCount, categoryStats } = useAllProducts();
+  const { activePromos } = usePromos();
+  console.log(activePromos);
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* Welcome Header */}
@@ -27,7 +30,7 @@ function DashboardTab({ setAddProductDialogOpen, setActiveTab }) {
         />
         <StatCard
           title="Active Promo Codes"
-          value="8" // promoCodes.length
+          value={activePromos} // promoCodes.length
           icon={<Ticket className="text-emerald-600" size={24} />}
           description="Coupons available for customers"
           color="bg-emerald-50"
