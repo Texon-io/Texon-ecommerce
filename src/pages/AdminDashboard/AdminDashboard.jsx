@@ -23,7 +23,7 @@ export default function AdminDashboard() {
       if (user && user.user_metadata?.role === "admin") {
         setIsAdmin(true);
       } else {
-        window.location.href = "/admin-login";
+        window.location.href = "/";
       }
       setLoading(false);
     };
