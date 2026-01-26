@@ -1,29 +1,31 @@
-import { ChevronDown } from "lucide-react";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "./select";
+import { useSortProducts } from "@/pages/Products/sortProducts.js";
 
-function SortBy({ onChange, value = "" }) {
-  return (
-    <div className="relative mb-4">
-      <Select>
-        <SelectTrigger className={`outline-brand-main`}>
-          <SelectValue placeholder="Sort By" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="price-low">Price: Low to High</SelectItem>
-          <SelectItem value="price-high">Price: High to Low</SelectItem>
-          <SelectItem value="newest">Newest</SelectItem>
-          <SelectItem value="oldest">Oldest</SelectItem>
-        </SelectContent>
-      </Select>
+function SortBy() {
+    const { sortMethod, setSortMethod } = useSortProducts();
 
-    </div>
-  );
+    return (
+        <div className="relative mb-4">
+            <Select value={sortMethod} onValueChange={setSortMethod}>
+                <SelectTrigger className="outline-brand-main min-w-48">
+                    <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="default">Default</SelectItem>
+                    <SelectItem value="price-low">Price: Low to High</SelectItem>
+                    <SelectItem value="price-high">Price: High to Low</SelectItem>
+                    <SelectItem value="newest-first">Newest</SelectItem>
+                    <SelectItem value="oldest-first">Oldest</SelectItem>
+                </SelectContent>
+            </Select>
+        </div>
+    );
 }
 
 export default SortBy;

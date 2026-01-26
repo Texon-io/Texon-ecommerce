@@ -1,13 +1,21 @@
+import { NavLink } from "react-router";
+
 function IconButtonWithBadge({
   children,
   badgeCount,
   onClick,
   ariaLabel,
   className,
+  to,
 }) {
   return (
-    <button
-      className={`relative cursor-pointer rounded-full p-2 hover:bg-brand-main-trans transition ${className}`}
+    <NavLink
+      to={to || "#"}
+      className={({ isActive }) =>
+        `relative cursor-pointer rounded-full p-2 hover:bg-brand-main-trans transition ${
+          isActive ? "bg-brand-main-trans" : ""
+        } ${className}`
+      }
       onClick={onClick}
       aria-label={ariaLabel}
     >
@@ -17,7 +25,7 @@ function IconButtonWithBadge({
           {badgeCount}
         </span>
       )}
-    </button>
+    </NavLink>
   );
 }
 

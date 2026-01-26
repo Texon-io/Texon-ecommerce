@@ -3,46 +3,62 @@ import { Heart } from "lucide-react";
 import { Truck } from "lucide-react";
 import { Sprout } from "lucide-react";
 import { useState } from "react";
+import ProductPrice from "../../components/ui/ProductPrice";
+import { useIsInWishlist, useWishlistActions } from "../Wishlist/useWishlist";
+import { toast } from "sonner";
+import { useCart, useCartActions, useIsInCart } from "../Cart/useCart";
 
-export function ProductInfo({ productdetails }) {
-  const [isClicked, setIsClicked] = useState(false);
+export function ProductInfo({ product }) {
+  // Wishlist
+  const { addToWishlist, removeFromWishlist } = useWishlistActions();
+  const { data: isWishlisted } = useIsInWishlist(product.id);
+  // Cart
+  const { cartItems } = useCart();
+  const { addToCart, removeFromCart } = useCartActions();
+  const { data: cartStatus = { isInCart: false } } = useIsInCart(product.id);
 
-  const discountedPrice = productdetails.hasDiscount
-    ? (
-        productdetails.price -
-        (productdetails.price * productdetails.discountPercentage) / 100
-      ).toFixed(2)
-    : null;
+  // State
+  const [isWishlistClicked, setIsWishlistClicked] = useState(isWishlisted);
+  const [isCartClicked, setIsCartClicked] = useState(cartStatus.isInCart);
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-    console.log("Button clicked!");
+  const cartItemId = cartItems.find(
+    (item) => item.id === product.id,
+  )?.cartItemId;
+
+  const handleAddToCart = () => {
+    if (isCartClicked) {
+      removeFromCart(cartItemId);
+      setIsCartClicked(!isCartClicked);
+      toast.success("Removed from cart!");
+    } else {
+      addToCart({ productId: product.id });
+      setIsCartClicked(!isCartClicked);
+      toast.success("Added to cart!");
+    }
+  };
+
+  const handleToggleWishlist = () => {
+    if (isWishlistClicked) {
+      removeFromWishlist(product.id);
+      setIsWishlistClicked(!isWishlistClicked);
+      toast.success("Removed from wishlist!");
+    } else {
+      addToWishlist(product.id);
+      setIsWishlistClicked(!isWishlistClicked);
+      toast.success("Added to wishlist!");
+    }
   };
 
   return (
     <div className="space-y-6">
       <div className="space-y-4">
-        <h1 className="text-2xl font-semibold">{productdetails.title}</h1>
+        <h1 className="text-2xl font-semibold">{product.title}</h1>
         {/* Description */}
-        <p className="text-sm text-brand-gray leading-relaxed">
-          {productdetails.description}
+        <p className="text-sm text-brand-gray leading-relaxed ">
+          {product.description}
         </p>
         {/* Price */}
-        <div className=" flex items-center gap-1 py-2 ">
-          <p className=" text-2xl font-bold text-brand-main">
-            ${discountedPrice ? discountedPrice : productdetails.price}
-          </p>
-          {discountedPrice && (
-            <p className="line-through text-sm font-medium text-gray-400 self-end pb-0.5">
-              ${productdetails.price.toFixed(2)}
-            </p>
-          )}
-          {productdetails.hasDiscount && (
-            <span className="text-sm bg-red-200 font-medium ml-6 px-2 py-1 rounded-md text-red-600">
-              {productdetails.discountPercentage}% off
-            </span>
-          )}
-        </div>
+        <ProductPrice price={product.price} />
       </div>
       <div className="space-y-3">
         <div className="flex items-center gap-3 text-sm text-muted-foreground ">
@@ -60,18 +76,23 @@ export function ProductInfo({ productdetails }) {
 
       {/* Actions */}
       <div className="flex gap-4">
-        <Button variant="main" size="lg" className="flex-1 rounded-lg">
-          Add to Cart
+        <Button
+          onClick={handleAddToCart}
+          variant={isCartClicked ? "outline" : "main"}
+          size="lg"
+          className="flex-1 rounded-lg"
+        >
+          {isCartClicked ? "Remove from Cart" : "Add to Cart"}
         </Button>
 
         <button
-          onClick={handleClick}
+          onClick={handleToggleWishlist}
           className="rounded-lg border p-3 cursor-pointer hover:bg-gray-100 active:scale-95 transition"
         >
           <Heart
             size={20}
-            color={isClicked ? "red" : "black"}
-            fill={isClicked ? "red" : "none"}
+            color={isWishlistClicked ? "red" : "black"}
+            fill={isWishlistClicked ? "red" : "none"}
             strokeWidth={2.3}
           />
         </button>

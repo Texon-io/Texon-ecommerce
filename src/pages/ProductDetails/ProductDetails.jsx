@@ -1,30 +1,53 @@
 import { ProductGallery } from "./ProductGallery";
 import { ProductInfo } from "./ProductInfo";
-
-const productdetails = {
-  title: "Luxe Armchair · Left Arm · Oyster",
-  description: `Ultra-functional and elegantly minimalist, our Luxe Armchair
-          Collection draws inspiration from Nordic-style décor. It features a
-          neutral color palette and natural wood accents, highlighted by
-          uniquely designed hexagonal legs.`,
-  price: 799,
-  hasDiscount: true, //NOTE - set to true if there's a discount
-  discountPercentage: 10, //NOTE - set discount percentage if applicable
-  images: [
-    "/public/images/product-img-1.png",
-    "/public/images/product-img-2.png",
-    "/public/images/product-img-3.png",
-    "/public/images/product-img-4.png",
-  ],
-};
+import { Skeleton } from "@/components/ui/skeleton";
+import { PageError } from "@/components/ui/PageError";
+import { useProductId } from "./useProductId";
 
 export default function ProductDetails() {
-  return (
-    <section className="mx-auto max-w-7xl px-0 md:px-6 py-12 ">
-      <div className="grid gap-6 md:gap-12 md:grid-cols-2 items-center">
-        <ProductGallery productdetails={productdetails} />
-        <ProductInfo productdetails={productdetails} />
+  const { isLoading, product, error } = useProductId();
+
+  // Check if the product is not found at all
+  if (!product && !isLoading && error)
+    return <PageError message={"Product not found!"} />;
+
+  let productdetails = {};
+
+  if (product) {
+    productdetails = {
+      id: product.id,
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      hasDiscount: false,
+      discountPercentage: product.discount, //NOTE - set discount percentage if applicable
+      images: [
+        product.image_url,
+        product.image_url,
+        product.image_url,
+        product.image_url,
+      ], //NOTE - array of image URLs
+    };
+  }
+
+  if (isLoading)
+    return (
+      <div className="mx-auto max-w-7xl px-0 md:px-6 py-12">
+        <div className="flex gap-6 flex-col md:flex-row justify-center items-center">
+          <Skeleton className="w-full md:w-1/2 h-100 md:h-125 lg:h-150" />
+          <Skeleton className="w-full md:w-1/2 h-75 md:h-100 lg:h-125" />
+        </div>
       </div>
+    );
+
+  return (
+    <section className="mx-auto max-w-7xl px-0 md:px-6 py-12 md:mt-24 ">
+      {product && (
+        <div className="grid gap-6 md:gap-12 md:grid-cols-2 items-center">
+          <ProductGallery product={productdetails} />
+          <ProductInfo product={productdetails} />
+        </div>
+      )}
     </section>
   );
 }

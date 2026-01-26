@@ -32,41 +32,50 @@ function Designs() {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 auto-rows-[175px] sm:auto-rows-[250px] ">
         <img
+          loading={`lazy`}
           src={gallery[0]}
           className="w-full h-full object-cover rounded-lg row-span-2"
         />
         <img
+          loading={`lazy`}
           src={gallery[1]}
           className="w-full h-full object-cover rounded-lg"
         />
         <img
+          loading={`lazy`}
           src={gallery[2]}
           className="w-full h-full object-cover rounded-lg row-span-2"
         />
 
         <img
+          loading={`lazy`}
           src={gallery[3]}
           className="w-full h-full object-cover rounded-lg row-span-2"
         />
         <img
+          loading={`lazy`}
           src={gallery[4]}
           className="w-full h-full object-cover rounded-lg row-span-2"
         />
 
         <img
+          loading={`lazy`}
           src={gallery[5]}
           className="w-full h-full object-cover rounded-lg row-span-2"
         />
         <img
+          loading={`lazy`}
           src={gallery[6]}
           className="w-full h-full object-cover rounded-lg row-span-2"
         />
         <img
+          loading={`lazy`}
           src={gallery[7]}
           className="w-full h-full object-cover rounded-lg"
         />
 
         <img
+          loading={`lazy`}
           src={gallery[8]}
           className="w-full h-full object-cover rounded-lg max-sm:hidden"
         />

@@ -32,7 +32,6 @@ function FAQ() {
         type="single"
         collapsible
         className="w-full text-brand-black"
-        defaultValue="item-1"
       >
         {faqData.map((item, i) => (
           <AccordionItem value={`item-${i + 1}`}>
