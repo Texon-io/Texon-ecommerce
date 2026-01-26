@@ -6,7 +6,6 @@ import { usePromos } from "./usePromos";
 function DashboardTab({ setAddProductDialogOpen, setActiveTab }) {
   const { numCategories, productsCount, categoryStats } = useAllProducts();
   const { activePromos } = usePromos();
-  console.log(activePromos);
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* Welcome Header */}

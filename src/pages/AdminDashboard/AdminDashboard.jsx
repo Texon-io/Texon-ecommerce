@@ -4,10 +4,33 @@ import AdminSidebar from "./AdminSidebar";
 import DashboardTab from "./DashboardTab";
 import ProductsTab from "./ProductsTab";
 import PromosTab from "./PromosTab";
+import { useEffect } from "react";
+import { supabase } from "../../lib/Supabase";
+import Checking from "./Checking";
+
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard"); // dashboard | products | promos
   const [addProductDialogOpen, setAddProductDialogOpen] = useState(false);
+
+  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (user && user.user_metadata?.role === "admin") {
+        setIsAdmin(true);
+      } else {
+        window.location.href = "/admin-login";
+      }
+      setLoading(false);
+    };
+    checkUser();
+  }, []);
+  if (loading) return <Checking />
+  if (!isAdmin) return null;
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen gap-4 bg-gray-100 p-4">
