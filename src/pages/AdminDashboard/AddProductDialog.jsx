@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"; // أضفنا useEffect
+import { useState, useRef, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { ImagePlus, X } from "lucide-react";
 import CustomSelect from "./CustomSelect";
 import { useAllProducts } from "./useAllProducts";
+import { toast } from "sonner";
 
 const categories = [
   { id: "All", label: "All" },
@@ -21,7 +22,6 @@ const categories = [
   { id: "Sitting Room", label: "Sitting Room" },
 ];
 
-// أضفنا البروب productToEdit
 export default function AddProductDialog({
   open,
   setOpen,
@@ -30,14 +30,13 @@ export default function AddProductDialog({
   const [image, setImage] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const fileInputRef = useRef(null);
-  const { addProduct, editProduct } = useAllProducts(); // استدعاء editProduct
+  const { addProduct, editProduct } = useAllProducts();
 
-  // مراقبة التغيير: لو فيه منتج للتعديل املأ البيانات، لو مفيش صفرها
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (productToEdit) {
       setSelectedCategory(productToEdit.category);
-      setImage(productToEdit.image_url || null); // وضع رابط الصورة القديم
+      setImage(productToEdit.image_url || null);
     } else {
       setSelectedCategory("All");
       setImage(null);
@@ -69,11 +68,13 @@ export default function AddProductDialog({
       image_url: image,
     };
 
-    // التبديل بين التعديل والإضافة
+    // Check if the product is being edited
     if (productToEdit) {
       editProduct({ id: productToEdit.id, updatedData: productData });
+      toast.success("Product updated successfully!");
     } else {
       addProduct(productData);
+      toast.success("Product added successfully!");
     }
 
     setOpen(false);
@@ -95,7 +96,7 @@ export default function AddProductDialog({
             <ShadInput
               id="title"
               name="title"
-              defaultValue={productToEdit?.title || ""} // استخدام defaultValue للتعديل
+              defaultValue={productToEdit?.title || ""} // Set the default value
               placeholder="e.g. Modern Leather Sofa"
               className="focus:ring-[#7C71DF] focus:border-[#7C71DF]"
               required
@@ -164,7 +165,7 @@ export default function AddProductDialog({
               {image ? (
                 <div className="relative group aspect-square w-32 rounded-lg overflow-hidden border shadow-sm">
                   <img
-                    // عرض الصورة سواء كانت ملف جديد أو رابط قديم من السيرفر
+                    // Display the uploaded image
                     src={
                       typeof image === "string"
                         ? image

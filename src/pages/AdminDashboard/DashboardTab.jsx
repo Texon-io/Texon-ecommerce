@@ -1,7 +1,9 @@
 import { Ticket, LayoutGrid, Package, PlusCircle } from "lucide-react";
 import { CategoryInfo, StatCard } from "./HelpsComponents";
+import { useAllProducts } from "./useAllProducts";
 
 function DashboardTab({ setAddProductDialogOpen, setActiveTab }) {
+  const { numCategories, productsCount, categoryStats } = useAllProducts();
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* Welcome Header */}
@@ -18,7 +20,7 @@ function DashboardTab({ setAddProductDialogOpen, setActiveTab }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         <StatCard
           title="Total Products"
-          value="124" // products.length
+          value={productsCount} // products.length
           icon={<Package className="text-purple-600" size={24} />}
           description="Total items in your catalog"
           color="bg-purple-50"
@@ -32,7 +34,7 @@ function DashboardTab({ setAddProductDialogOpen, setActiveTab }) {
         />
         <StatCard
           title="Categories"
-          value="6" // categories.length
+          value={numCategories} // categories.length
           icon={<LayoutGrid className="text-blue-600" size={24} />}
           description="Product segments defined"
           color="bg-blue-50"
@@ -48,14 +50,31 @@ function DashboardTab({ setAddProductDialogOpen, setActiveTab }) {
           </h3>
           <div className="space-y-5">
             {/* Categories go here */}
-            <CategoryInfo label="Bedroom" count={45} color="bg-purple-500" />
-            <CategoryInfo label="Kitchen" count={32} color="bg-blue-500" />
+            <CategoryInfo
+              label="Bedroom"
+              count={categoryStats.Bedroom}
+              color="bg-fuchsia-500"
+            />
+            <CategoryInfo
+              label="Kitchen"
+              count={categoryStats.Kitchen}
+              color="bg-blue-500"
+            />
             <CategoryInfo
               label="Accessories"
-              count={28}
+              count={categoryStats.Accessories}
               color="bg-emerald-500"
             />
-            <CategoryInfo label="Chairs" count={19} color="bg-amber-500" />
+            <CategoryInfo
+              label="Chairs"
+              count={categoryStats.Chairs}
+              color="bg-amber-500"
+            />
+            <CategoryInfo
+              label="Seating Room"
+              count={categoryStats["Sitting Room"]}
+              color="bg-red-500"
+            />
           </div>
         </div>
 

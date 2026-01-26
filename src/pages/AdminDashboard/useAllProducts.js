@@ -20,8 +20,16 @@ export function useAllProducts(category) {
     queryFn: () => getAllProducts({ category }),
   });
 
-  // Calculate the number of products
+  // Calculates
   const productsCount = products.length;
+
+  const categoryStats = products.reduce((acc, product) => {
+    const cat = product.category || "Uncategorized";
+    acc[cat] = (acc[cat] || 0) + 1;
+    return acc;
+  }, {});
+
+  const numCategories = Object.keys(categoryStats).length;
 
   // 2. Adding a product
   const { mutate: addProductMutate } = useMutation({
@@ -50,7 +58,9 @@ export function useAllProducts(category) {
   return {
     status,
     products,
-    productsCount, // Length of the products
+    productsCount,
+    numCategories,
+    categoryStats,
     error,
     isLoading,
     addProduct: addProductMutate,

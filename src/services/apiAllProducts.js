@@ -28,37 +28,37 @@ export async function addProduct(newProduct) {
 
     if (storageError) {
       console.error("Storage Error:", storageError);
-      throw new Error("حدث خطأ أثناء رفع الصورة، لم يتم إضافة المنتج.");
+      throw new Error("There was an error uploading the image.");
     }
 
-    // الحصول على الرابط المباشر للصورة بعد الرفع
+    // Get the public URL
     const { data: urlData } = supabase.storage
       .from("product-images")
       .getPublicUrl(imagePath);
 
     publicImageUrl = urlData.publicUrl;
   } else {
-    // لو مفيش صورة أو مبعوت رابط جاهز (string)
+    // If the image is a string, it's already a public URL
     publicImageUrl = typeof imageFile === "string" ? imageFile : "";
   }
 
-  // 3. تجهيز الـ Object النهائي اللي هينزل في الـ Table
+  // Convert price and stock to numbers & collect the final data
   const finalProductData = {
     title: newProduct.title,
     description: newProduct.description,
     category: newProduct.category,
-    price: Number(newProduct.price), // تأكد إن السعر رقم
-    stock: Number(newProduct.stock), // تأكد إن المخزون رقم
+    price: Number(newProduct.price),
+    stock: Number(newProduct.stock),
     discount: Number(newProduct.discount || 0),
-    image_url: publicImageUrl, // الرابط اللي جالنا من الـ Storage
+    image_url: publicImageUrl,
   };
 
-  // 4. إضافة البيانات لجدول المنتجات
+  //   Add the product to the products table
   const { data, error } = await supabase
     .from("products")
     .insert([finalProductData])
     .select()
-    .single(); // عشان يرجع لي المنتج اللي اتضاف كـ Object مش Array
+    .single();
 
   if (error) {
     console.error("Database Error:", error);
@@ -70,31 +70,30 @@ export async function addProduct(newProduct) {
 
 // Delete product
 export async function deleteProduct(id) {
-  // 1. أولاً: نجيب بيانات المنتج عشان نعرف مسار الصورة
+  // Get the product first
   const { data: product, error: fetchError } = await supabase
     .from("products")
     .select("image_url")
     .eq("id", id)
     .single();
 
-  if (fetchError) throw new Error("لم يتم العثور على المنتج لمسحه");
+  if (fetchError) throw new Error("Product could not be loaded.");
 
-  // 2. ثانياً: لو فيه صورة، نمسحها من الـ Storage
+  // Delete the image from storage
   if (product.image_url) {
-    // بنستخرج اسم الملف من الرابط (آخر جزء في الـ URL)
+    // Get the name of the image
     const imageName = product.image_url.split("/").pop();
 
     const { error: storageError } = await supabase.storage
-      .from("product-images") // تأكد من اسم الـ Bucket عندك
+      .from("product-images")
       .remove([imageName]);
 
     if (storageError) {
-      console.error("فشل مسح الصورة من الـ Storage:", storageError);
-      // بنكمل مسح المنتج حتى لو الصورة فشلت عشان ميفضلش المنتج متعلق
+      console.error("Storage Error:", storageError);
     }
   }
 
-  // 3. ثالثاً: نمسح المنتج نفسه من الجدول
+  // 3. Delete the product
   const { error } = await supabase.from("products").delete().eq("id", id);
 
   if (error) throw new Error(error.message);
@@ -104,18 +103,18 @@ export async function deleteProduct(id) {
 export async function editProduct({ id, updatedData }) {
   let imageUrl = updatedData.image_url;
 
-  // 1. فحص إذا كان المستخدم رفع ملف جديد (File) وليس مجرد رابط (String)
+  // Check if the image is a new session image
   const isNewSessionImage = updatedData.image_url instanceof File;
 
   if (isNewSessionImage) {
-    // أ- هات بيانات المنتج القديم عشان نعرف رابط الصورة القديمة ونمسحها
+    // Get the old product
     const { data: oldProduct } = await supabase
       .from("products")
       .select("image_url")
       .eq("id", id)
       .single();
 
-    // ب- ارفع الصورة الجديدة
+    // Upload the new image
     const imageName =
       `${Math.random()}-${updatedData.image_url.name}`.replaceAll("/", "");
     const imagePath = imageName;
@@ -124,27 +123,28 @@ export async function editProduct({ id, updatedData }) {
       .from("product-images")
       .upload(imagePath, updatedData.image_url);
 
-    if (storageError) throw new Error("فشل رفع الصورة الجديدة");
+    if (storageError)
+      throw new Error("There was an error uploading the image.");
 
-    // ج- احصل على الرابط الجديد
+    // Get the old URL
     const { data: urlData } = supabase.storage
       .from("product-images")
       .getPublicUrl(imagePath);
 
     imageUrl = urlData.publicUrl;
 
-    // د- (اختياري ولكن محبذ) امسح الصورة القديمة من الـ Storage
+    // Delete the old image
     if (oldProduct?.image_url) {
       const oldImageName = oldProduct.image_url.split("/").pop();
       await supabase.storage.from("product-images").remove([oldImageName]);
     }
   }
 
-  // 2. تحديث بيانات الجدول بالبيانات الجديدة (سواء الرابط اتغير أو لأ)
+  // Update the product
   const finalUpdate = {
     ...updatedData,
     image_url: imageUrl,
-    // تأكد من تحويل القيم لأرقام لتجنب مشاكل النوع (Types)
+
     price: Number(updatedData.price),
     stock: Number(updatedData.stock),
   };

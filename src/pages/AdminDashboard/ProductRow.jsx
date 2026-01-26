@@ -2,11 +2,11 @@ import { toast } from "sonner";
 import { useAllProducts } from "./useAllProducts";
 import { useState } from "react";
 import ConfirmDeleteDialog from "@/components/ui/ConfirmDeleteDialog";
-import AddProductDialog from "./AddProductDialog"; // استيراد الموديل اللي جهزناه
+import AddProductDialog from "./AddProductDialog";
 
 function ProductRow({ product }) {
   const [productDeleteDialogOpen, setProductDeleteDialogOpen] = useState(false);
-  const [productEditDialogOpen, setProductEditDialogOpen] = useState(false); // State للتعديل
+  const [productEditDialogOpen, setProductEditDialogOpen] = useState(false); // Edit dialog
 
   const { deleteProduct } = useAllProducts();
   const { title, image_url, category, price, stock } = product;
@@ -27,7 +27,6 @@ function ProductRow({ product }) {
         </span>
       </td>
 
-      {/* ... بقية الـ cells ... */}
       <td className="p-4 text-gray-600 text-sm">{category}</td>
       <td className="p-4 font-bold text-brand-main text-sm">${price}</td>
       <td className="p-4">
@@ -38,15 +37,14 @@ function ProductRow({ product }) {
 
       <td className="p-4 text-center">
         <div className="flex flex-col xl:flex-row gap-2 justify-center items-center">
-          {/* زرار التعديل */}
+          {/* Action buttons */}
           <button
-            onClick={() => setProductEditDialogOpen(true)} // افتح موديل التعديل
+            onClick={() => setProductEditDialogOpen(true)} // Edit dialog open
             className="w-full xl:w-auto bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 shadow-sm rounded-lg transition-all cursor-pointer text-xs"
           >
             Edit
           </button>
 
-          {/* زرار الحذف */}
           <button
             onClick={() => setProductDeleteDialogOpen(true)}
             className="w-full xl:w-auto bg-red-500 hover:bg-red-600 text-white px-3 py-1 shadow-sm rounded-lg transition-all cursor-pointer text-xs"
@@ -54,14 +52,14 @@ function ProductRow({ product }) {
             Delete
           </button>
 
-          {/* موديل التعديل - بنبعت له البيانات الحالية */}
+          {/* Edit dialog receive product */}
           <AddProductDialog
             open={productEditDialogOpen}
             setOpen={setProductEditDialogOpen}
-            productToEdit={product} // السحر هنا!
+            productToEdit={product}
           />
 
-          {/* موديل الحذف */}
+          {/* Delete dialog */}
           <ConfirmDeleteDialog
             title="Delete Product?"
             description="Are you sure you want to delete this product?"
