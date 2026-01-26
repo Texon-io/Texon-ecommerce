@@ -1,11 +1,10 @@
-import ConfirmDeleteDialog from "@/components/ui/ConfirmDeleteDialog";
-import { Trash2 } from "lucide-react";
-import { toast } from "sonner";
 import CustomSelect from "./CustomSelect";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { Search, PlusCircle, Edit } from "lucide-react";
+import { Search, PlusCircle } from "lucide-react";
 import AddPromoDialog from "./AddPromoDialog";
+import PromoRow from "./PromoRow";
+import { usePromos } from "./usePromos";
 
 const statuses = [
   { id: "all", label: "All" },
@@ -15,9 +14,35 @@ const statuses = [
 
 function PromosTab() {
   const [selectedStatue, setSelectedStatue] = useState("all");
-  const [promoDeleteDialogOpen, setPromoDeleteDialogOpen] = useState(false);
   const [isAddPromoOpen, setIsAddPromoOpen] = useState(false);
   const [promoSearch, setPromoSearch] = useState("");
+  const [selectedPromo, setSelectedPromo] = useState(null);
+
+  function handleEdit(promo) {
+    setSelectedPromo(promo);
+    setIsAddPromoOpen(true);
+  }
+
+  function handleAddNew() {
+    setSelectedPromo(null);
+    setIsAddPromoOpen(true);
+  }
+  const { promos } = usePromos();
+
+  const displayedPromos = promos.filter((promo) => {
+    const matchesStatus =
+      selectedStatue === "all" ||
+      (selectedStatue === "active" && promo.is_active) ||
+      (selectedStatue === "inactive" && !promo.is_active);
+
+    const matchesSearch = promo.code
+      .toLowerCase()
+      .includes(promoSearch.toLowerCase());
+
+    return matchesStatus && matchesSearch;
+  });
+
+  console.log(promos, displayedPromos);
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       {/* Header */}
@@ -31,7 +56,7 @@ function PromosTab() {
           </p>
         </div>
         <button
-          onClick={() => setIsAddPromoOpen(true)}
+          onClick={handleAddNew}
           className="w-full sm:w-auto cursor-pointer flex items-center justify-center gap-2 bg-[#7C71DF] text-white px-5 py-2.5 rounded-xl hover:bg-[#6b61c5] transition-all shadow-md shadow-[#7C71DF]/20"
         >
           <PlusCircle size={20} /> Create New Coupon
@@ -68,7 +93,11 @@ function PromosTab() {
         />
       </div>
 
-      <AddPromoDialog open={isAddPromoOpen} onOpenChange={setIsAddPromoOpen} />
+      <AddPromoDialog
+        open={isAddPromoOpen}
+        onOpenChange={setIsAddPromoOpen}
+        promoToEdit={selectedPromo}
+      />
 
       {/* Promo Codes Table */}
       <div className="bg-white rounded-xl border shadow-sm overflow-x-auto">
@@ -84,7 +113,7 @@ function PromosTab() {
               </th>
 
               <th className="p-4 font-semibold text-gray-600 text-sm">
-                Usage Limit
+                Usage Count
               </th>
               <th className="p-4 font-semibold text-gray-600 text-sm">
                 Status
@@ -96,7 +125,10 @@ function PromosTab() {
           </thead>
           <tbody className="divide-y text-center">
             {/* Example */}
-            <tr className="hover:bg-gray-50/50 transition">
+            {displayedPromos.map((promo) => (
+              <PromoRow key={promo.id} promo={promo} onEdit={handleEdit} />
+            ))}
+            {/* <tr className="hover:bg-gray-50/50 transition">
               <td className="p-4">
                 <span className="font-mono font-bold text-lg bg-gray-100 px-3 py-1 rounded-md border border-dashed border-gray-300 text-gray-800">
                   TEXON20
@@ -143,7 +175,7 @@ function PromosTab() {
                   />
                 </div>
               </td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </div>
